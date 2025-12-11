@@ -3,21 +3,21 @@
 ## 🎯 File Richiesti
 
 ### 🥇 PRIMO PREMIO
-**File:** `1premio1.jpg`  
+**File:** `1premio1.png`  
 **Prodotto:** MIKELI GENOA - Giacca imbottita da uomo  
 **Modello:** Blue dk-red blaze  
 **Prezzo:** €149,00  
 **Descrizione:** Giacca imbottita da uomo blu scuro con logo della squadra
 
 ### 🥈 SECONDO PREMIO  
-**File:** `2premio1.jpg` (principale), `2premio2.jpg`, `2premio3.jpg` (dettagli)
+**File:** `2premio1.png` (principale), `2premio2.jpg`, `2premio3.jpg` (dettagli)
 **Prodotto:** MEQUO GENOA - Giacca in pile da uomo
 **Modello:** Blue dk-red blaze  
 **Prezzo:** €79,00
 **Descrizione:** Giacca in pile blu da uomo con cappuccio e vestibilità slim
 
 ### 🥉 TERZO PREMIO
-**File:** `3premio1.jpg` (principale), `3premio2.jpg` (dettagli)
+**File:** `3premio1.png` (principale), `3premio2.jpg` (dettagli)
 **Prodotto:** 20.3H GENOA - Pallone da calcio da allenamento
 **Modello:** White-red-blue dk-yellow
 **Prezzo:** €30,00
