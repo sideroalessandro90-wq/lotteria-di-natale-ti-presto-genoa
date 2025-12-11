@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="genoaGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#002147;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c8102e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#genoaGrad3)" rx="15"/>
+  <text x="200" y="80" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">🥉 TERZO PREMIO</text>
+  <circle cx="200" cy="140" r="35" fill="white" stroke="#c8102e" stroke-width="3"/>
+  <text x="200" y="145" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#002147">⚽</text>
+  <text x="200" y="190" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffd700">20.3H GENOA</text>
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">Pallone allenamento unisex</text>
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">White-red-blue dk-yellow</text>
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#10b981">€30,00</text>
+</svg>

@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Lotteria di Natale 2025 - Genoa CFC</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#002147">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Fonts Natalizi -->
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;600;700;800&family=Fredoka+One:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+    
+    <style>
+        /* === STILE PREMIUM LOTTERIA GENOA === */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #001122 0%, #002147 20%, #1a4d72 50%, #002147 80%, #001122 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Effetto neve */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.3"/><circle cx="30" cy="30" r="1.5" fill="white" opacity="0.4"/><circle cx="60" cy="20" r="1" fill="white" opacity="0.5"/><circle cx="80" cy="60" r="2" fill="white" opacity="0.3"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.6"/></svg>') repeat;
+            animation: snowfall 20s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes snowfall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        /* Header Premium */
+        .lottery-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .lottery-title {
+            font-family: 'Mountains of Christmas', 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #c8102e, #ff6b6b, #ffd700, #c8102e);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: christmasGlow 4s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes christmasGlow {
+            0%, 100% { background-position: 0% 50%; filter: drop-shadow(0 0 20px #c8102e); }
+            25% { background-position: 50% 0%; filter: drop-shadow(0 0 25px #ffd700); }
+            50% { background-position: 100% 50%; filter: drop-shadow(0 0 20px #ff6b6b); }
+            75% { background-position: 50% 100%; filter: drop-shadow(0 0 25px #c8102e); }
+        }
+        
+        .lottery-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        /* Locandina */
+        .locandina-container {
+            margin: 30px auto;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .locandina-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.3),
+                0 0 30px rgba(200,16,46,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .locandina-img:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.4),
+                0 0 40px rgba(255,215,0,0.3);
+        }
+        
+        .countdown-container {
+            background: rgba(200,16,46,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border: 2px solid rgba(200,16,46,0.3);
+        }
+        
+        .countdown-timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+        
+        /* Container Principale */
+        .lottery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Info Panel con Decorazioni */
+        .info-panel {
+            background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255,215,0,0.2);
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.3),
+                0 0 20px rgba(255,215,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+        }
+        
+        .info-panel h2 {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+        
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .prize-card {
+            background: linear-gradient(135deg, #c8102e, #a50d26);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(200,16,46,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .prize-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .prize-place {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .prize-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .prize-value {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Griglia Numeri */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 12px;
+            margin: 30px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .number-box {
+            aspect-ratio: 1;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        .number-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            transform: rotate(-45deg);
+            transition: transform 0.6s;
+            opacity: 0;
+        }
+        
+        .number-box:hover {
+            transform: scale(1.1);
+            border-color: #ffd700;
+            box-shadow: 0 12px 30px rgba(255,215,0,0.4);
+            z-index: 10;
+            position: relative;
+        }
+        
+        .number-box:active {
+            transform: scale(0.95);
+        }
+        
+        .number-box.available:hover {
+            background: linear-gradient(145deg, rgba(34,197,94,0.4), rgba(22,163,74,0.2));
+            color: #34d399;
+        }
+        
+        .number-box.sold:hover {
+            transform: scale(1);
+            cursor: not-allowed;
+            box-shadow: 0 8px 20px rgba(120,113,108,0.3);
+        }
+        
+        .number-box.available {
+            background: linear-gradient(145deg, rgba(34,197,94,0.2), rgba(22,163,74,0.1));
+            border-color: #10b981;
+            color: #10b981;
+            box-shadow: 
+                0 8px 25px rgba(16,185,129,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .number-box.available:hover::before {
+            opacity: 1;
+            transform: rotate(-45deg) translate(100%, 100%);
+        }
+        
+        .number-box.selected {
+            background: linear-gradient(145deg, #c8102e, #dc2626, #b91c1c);
+            border-color: #ffd700;
+            color: white;
+            box-shadow: 
+                0 12px 30px rgba(200,16,46,0.6),
+                0 0 30px rgba(255,215,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            animation: christmasPulse 2s infinite;
+            transform: scale(1.05);
+        }
+        
+        .number-box.selected::after {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            animation: starTwinkle 1.5s infinite;
+        }
+        
+        .number-box.sold {
+            background: linear-gradient(145deg, rgba(120,113,108,0.4), rgba(87,83,78,0.2));
+            border-color: #78716c;
+            color: #a8a29e;
+            cursor: not-allowed;
+            position: relative;
+            opacity: 0.7;
+        }
+        
+        .number-box.sold::before {
+            content: '❄️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            opacity: 0.6;
+        }
+        
+        @keyframes christmasPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 12px 30px rgba(200,16,46,0.6),
+                    0 0 30px rgba(255,215,0,0.4);
+            }
+            50% { 
+                box-shadow: 
+                    0 15px 35px rgba(200,16,46,0.8),
+                    0 0 40px rgba(255,215,0,0.6);
+            }
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.3) rotate(180deg); opacity: 0.8; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Pannello Selezione */
+        .selection-panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        
+        .selected-numbers {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .total-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #c8102e;
+            margin-bottom: 20px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-premium {
+            background: linear-gradient(135deg, #c8102e, #a50d26);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(200,16,46,0.3);
+            min-width: 150px;
+        }
+        
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(200,16,46,0.4);
+            background: linear-gradient(135deg, #e91e63, #c8102e);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        /* Lista Acquisti */
+        .purchases-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .purchase-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lottery-title {
+                font-size: 2rem;
+            }
+            
+            .numbers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                gap: 8px;
+            }
+            
+            .number-box {
+                font-size: 1.2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-premium {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Animazioni */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .toast.success {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .toast.error {
+            border-left: 4px solid #f44336;
+        }
+        
+        .toast.info {
+            border-left: 4px solid #2196f3;
+        }
+        
+        /* === SEZIONE PREMI === */
+        .prizes-showcase {
+            background: linear-gradient(135deg, rgba(200,16,46,0.1), rgba(0,33,71,0.1));
+            border-radius: 25px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(255,215,0,0.3);
+            backdrop-filter: blur(15px);
+        }
+        
+        .prizes-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .prize-showcase {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(255,215,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prize-showcase:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255,215,0,0.3);
+            border-color: rgba(255,215,0,0.6);
+        }
+        
+        .prize-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .prize-showcase:hover::before {
+            left: 100%;
+        }
+        
+        .prize-rank {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .prize-image {
+            width: 100%;
+            max-width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 3px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .prize-showcase:hover .prize-image {
+            transform: scale(1.05);
+            border-color: rgba(255,215,0,0.8);
+        }
+        
+        .prize-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffd700;
+            margin: 15px 0 10px 0;
+            text-transform: uppercase;
+        }
+        
+        .prize-description {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .prize-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #10b981;
+            background: rgba(16,185,129,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .prizes-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .prize-showcase {
+                padding: 20px;
+            }
+            
+            .prize-image {
+                max-width: 200px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Premium con Locandina -->
+    <div class="lottery-header">
+        <h1 class="lottery-title">🎄 LOTTERIA DI NATALE 2025</h1>
+        <p class="lottery-subtitle">Genoa CFC - Ti Presto l'Abbonamento</p>
+        
+        <!-- Locandina Lotteria -->
+        <div class="locandina-container">
+            <img src="img/locandina-lotteria.png" alt="Locandina Lotteria Natale 2025" class="locandina-img" />
+        </div>
+        
+        <div class="countdown-container">
+            <div class="countdown-timer" id="countdownTimer">
+                ⏰ Estrazione: 24 Dicembre 2025 ore 18:30
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Principale -->
+    <div class="lottery-container">
+        
+        <!-- Galleria Premi Premium -->
+        <div class="prizes-showcase">
+            <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">🏆 PREMI IN PALIO</h2>
+            <p style="text-align: center; color: #e2e8f0; font-size: 1.1rem; margin-bottom: 25px;">Prodotti ufficiali Genoa CFC di altissima qualità!</p>
+            
+            <div class="prizes-gallery">
+                <div class="prize-showcase">
+                    <div class="prize-rank">🥇 PRIMO PREMIO</div>
+                    <img src="img/1premio1.jpg" alt="Giacca MIKELI GENOA Blue dk-red blaze" class="prize-image" />
+                    <div class="prize-title">MIKELI GENOA</div>
+                    <div class="prize-description">
+                        Giacca imbottita da uomo blu scuro<br>
+                        con logo della squadra<br>
+                        <strong>Modello: Blue dk-red blaze</strong>
+                    </div>
+                    <div class="prize-value">€149,00</div>
+                </div>
+                
+                <div class="prize-showcase">
+                    <div class="prize-rank">🥈 SECONDO PREMIO</div>
+                    <img src="img/2premio1.jpg" alt="Giacca MEQUO GENOA Blue dk-red blaze" class="prize-image" />
+                    <div class="prize-title">MEQUO GENOA</div>
+                    <div class="prize-description">
+                        Giacca in pile blu da uomo<br>
+                        con cappuccio e vestibilità slim<br>
+                        <strong>Modello: Blue dk-red blaze</strong>
+                    </div>
+                    <div class="prize-value">€79,00</div>
+                </div>
+                
+                <div class="prize-showcase">
+                    <div class="prize-rank">🥉 TERZO PREMIO</div>
+                    <img src="img/3premio1.jpg" alt="Pallone 20.3H GENOA White-red-blue dk-yellow" class="prize-image" />
+                    <div class="prize-title">20.3H GENOA</div>
+                    <div class="prize-description">
+                        Pallone da calcio da allenamento unisex<br>
+                        grigio a 14 pannelli<br>
+                        <strong>Modello: White-red-blue dk-yellow</strong>
+                    </div>
+                    <div class="prize-value">€30,00</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
+                <p style="color: #ffd700; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;">📋 REGOLAMENTO LOTTERIA</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; color: #e2e8f0;">
+                    <p><strong>💰 Prezzo numero:</strong> €5,00</p>
+                    <p><strong>🎯 Massimo per persona:</strong> 10 numeri</p>
+                    <p><strong>🎄 Estrazione:</strong> 24 Dicembre 2025</p>
+                    <p><strong>🏆 Totale premi:</strong> €258,00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Griglia Numeri -->
+        <div class="info-panel">
+            <h2 style="text-align: center; margin-bottom: 20px;">🎲 SCEGLI I TUOI NUMERI FORTUNATI</h2>
+            <div id="numbersStats" style="text-align: center; margin-bottom: 20px;"></div>
+            <div class="numbers-grid" id="numbersGrid">
+                <!-- Numeri generati dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Pannello Selezione -->
+        <div class="selection-panel" id="selectionPanel">
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #ffd700; margin-bottom: 10px;">🎯 LA TUA SELEZIONE</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Clicca sui numeri verdi per selezionarli. I numeri rossi/grigi sono già venduti.</p>
+            </div>
+            
+            <div class="selected-numbers" id="selectedNumbers">
+                🎯 Clicca sui numeri per selezionarli<br><small>(massimo 10 numeri)</small>
+            </div>
+            <div class="total-price" id="totalPrice">
+                €0,00
+            </div>
+            <div class="action-buttons">
+                <button class="btn-premium" id="buyButton" disabled style="opacity: 0.5;">
+                    💳 Acquista con PayPal
+                </button>
+                <button class="btn-premium btn-secondary" id="clearButton">
+                    🗑️ Cancella Tutto
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista Acquisti -->
+        <div class="purchases-section" id="purchasesSection">
+            <h2>📊 NUMERI GIÀ VENDUTI</h2>
+            <div id="purchasesList">
+                <!-- Lista popolata dinamicamente -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Include Lottery Script (opzionale) -->
+    <script src="lottery.js" onerror="console.log('⚠️ lottery.js non trovato, uso modalità standalone')"></script>
+    
+    <script>
+        // === CONFIGURAZIONE FIREBASE ===
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlsn7JQ3EQJO2C_5VQ9u3OOy8WmhfRfkU",
+            authDomain: "abbonamentigenoa.firebaseapp.com",
+            projectId: "abbonamentigenoa",
+            storageBucket: "abbonamentigenoa.firebasestorage.app",
+            messagingSenderId: "1072064423995",
+            appId: "1:1072064423995:web:c8aa4c8de6eea5bc4c1052",
+            measurementId: "G-JXWK6NWSYW"
+        };
+
+        // Inizializza Firebase una sola volta
+        if (!firebase.apps || firebase.apps.length === 0) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        
+        // Firebase refs (globali)
+        let firebaseDB = null;
+        let lotteryFirebaseRef = null;
+
+        // === STORAGE SICURO MIGLIORATO ===
+        const safeLocalStorage = {
+            isAvailable: false,
+            fallbackData: {},
+            
+            init() {
+                try {
+                    localStorage.setItem('__test__', 'test');
+                    localStorage.removeItem('__test__');
+                    this.isAvailable = true;
+                    console.log('💾 localStorage disponibile');
+                } catch (e) {
+                    this.isAvailable = false;
+                    console.log('⚠️ localStorage bloccato - uso memoria temporanea');
+                }
+            },
+            
+            get: function(key) {
+                if (safeLocalStorage.isAvailable) {
+                    try {
+                        const value = localStorage.getItem(key);
+                        if (value !== null) return value;
+                    } catch (e) {
+                        safeLocalStorage.isAvailable = false;
+                    }
+                }
+                return safeLocalStorage.fallbackData[key] || null;
+            },
+            
+            set: function(key, value) {
+                if (safeLocalStorage.isAvailable) {
+                    try {
+                        localStorage.setItem(key, value);
+                        return true;
+                    } catch (e) {
+                        safeLocalStorage.isAvailable = false;
+                    }
+                }
+                safeLocalStorage.fallbackData[key] = value;
+                return true;
+            },
+            
+            remove: function(key) {
+                if (safeLocalStorage.isAvailable) {
+                    try {
+                        localStorage.removeItem(key);
+                    } catch (e) {
+                        safeLocalStorage.isAvailable = false;
+                    }
+                }
+                delete safeLocalStorage.fallbackData[key];
+                return true;
+            }
+        };
+        
+        // Inizializza il sistema storage
+        safeLocalStorage.init();
+        
+        // Nascondi warning localStorage non critici (versione migliorata)
+        const originalWarn = console.warn;
+        const originalError = console.error;
+        
+        console.warn = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('Tracking Prevention blocked access to storage') ||
+                message.includes('localStorage non disponibile')) {
+                // Ignora silenziosamente - già gestito
+                return;
+            }
+            originalWarn.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('Tracking Prevention blocked access to storage')) {
+                // Converti in warning discreto
+                console.info('🔒 Modalità privacy attiva');
+                return;
+            }
+            originalError.apply(console, args);
+        };
+
+        // === GESTIONE UI ===
+        
+        // Stato globale lotteria
+        let selectedNumbers = [];
+        const maxNumbers = 10;
+        const pricePerNumber = 5;
+        
+        // Inizializza al caricamento pagina
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎄 Inizializzazione lotteria...');
+            
+            // Prima inizializza Firebase (se disponibile) in modalità silenziosa
+            if (window.initializeFirebaseLottery && typeof window.initializeFirebaseLottery === 'function') {
+                window.initializeFirebaseLottery().then(firebaseReady => {
+                    if (firebaseReady) {
+                        console.log('🔥 Firebase sync attivo');
+                        firebaseDB = firebase.firestore();
+                        lotteryFirebaseRef = firebaseDB.collection('lottery').doc('christmas2025');
+                    } else {
+                        console.log('💾 Modalità offline attiva');
+                        if (window.showToast) {
+                            setTimeout(() => {
+                                showToast('📱 Modalità offline - i tuoi acquisti saranno salvati!', 'info', 3000);
+                            }, 1000);
+                        }
+                    }
+                    
+                    // Poi inizializza UI
+                    initializeLottery();
+                    setupEventListeners();
+                    startCountdown();
+                    handlePayPalReturn();
+                }).catch(error => {
+                    console.error('❌ Errore Firebase, uso localStorage:', error);
+                    initializeLottery();
+                    setupEventListeners();
+                    startCountdown();
+                    handlePayPalReturn();
+                });
+            } else {
+                // Fallback diretto
+                console.log('💾 Solo localStorage disponibile');
+                initializeLottery();
+                setupEventListeners();
+                startCountdown();
+                handlePayPalReturn();
+            }
+        });
+        
+        function initializeLottery() {
+            console.log('🎲 Generazione griglia numeri...');
+            generateNumbersGrid();
+            console.log('🔄 Aggiornamento UI...');
+            updateUI();
+            console.log('📋 Caricamento lista acquisti...');
+            updatePurchasesList(); // Carica la lista acquisti
+            console.log('🎄 Lotteria di Natale inizializzata!');
+        }
+        
+        function generateNumbersGrid() {
+            const grid = document.getElementById('numbersGrid');
+            if (!grid) {
+                console.error('❌ Container numbersGrid non trovato!');
+                return;
+            }
+            
+            console.log('✅ Container numbersGrid trovato, generazione 90 numeri...');
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= 90; i++) {
+                const numberBox = document.createElement('div');
+                numberBox.className = 'number-box available';
+                numberBox.textContent = i;
+                numberBox.dataset.number = i;
+                
+                numberBox.addEventListener('click', () => selectNumber(i));
+                grid.appendChild(numberBox);
+            }
+            
+            console.log('✅ 90 numeri generati con successo!');
+        }
+        
+        function selectNumber(number) {
+            // Controlla se il numero è già venduto
+            const soldNumbers = getSoldNumbers();
+            if (soldNumbers.includes(number)) {
+                showToast('❌ Questo numero è già stato venduto!', 'error', 3000);
+                return;
+            }
+            
+            const isSelected = selectedNumbers.includes(number);
+            const numberBox = document.querySelector(`[data-number="${number}"]`);
+            
+            if (isSelected) {
+                // DESELEZIONA numero
+                selectedNumbers = selectedNumbers.filter(n => n !== number);
+                showToast(`🔄 Numero ${number} rimosso dalla selezione`, 'info', 2000);
+                
+                // Effetto visivo deseleziona
+                if (numberBox) {
+                    numberBox.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        numberBox.style.transform = 'scale(1)';
+                    }, 150);
+                }
+                
+            } else {
+                // SELEZIONA numero (se non al limite)
+                if (selectedNumbers.length >= maxNumbers) {
+                    showToast(`⚠️ Puoi selezionare massimo ${maxNumbers} numeri!`, 'error', 4000);
+                    
+                    // Effetto shake sui numeri selezionati
+                    document.querySelectorAll('.number-box.selected').forEach(box => {
+                        box.style.animation = 'shake 0.5s ease-in-out';
+                        setTimeout(() => {
+                            box.style.animation = 'christmasPulse 2s infinite';
+                        }, 500);
+                    });
+                    return;
+                }
+                
+                selectedNumbers.push(number);
+                showToast(`✨ Numero ${number} aggiunto! (${selectedNumbers.length}/${maxNumbers})`, 'success', 2000);
+                
+                // Effetto visivo seleziona
+                if (numberBox) {
+                    numberBox.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        numberBox.style.transform = 'scale(1.05)';
+                    }, 200);
+                }
+            }
+            
+            updateUI();
+            
+            // Suono di click (se disponibile)
+            playClickSound();
+        }
+        
+        function playClickSound() {
+            // Crea un suono di click semplice usando Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (e) {
+                // Audio non supportato, ignora
+            }
+        }
+        
+        // Calcola i numeri già venduti dalle prevendite
+        function getSoldNumbers() {
+            const prevendite = [
+                { numbers: [6,10,16] },
+                { numbers: [4] },
+                { numbers: [28,66] },
+                { numbers: [9,57] },
+                { numbers: [8] },
+                { numbers: [89,29] },
+                { numbers: [22] },
+                { numbers: [69] },
+                { numbers: [13] },
+                { numbers: [35] },
+                { numbers: [59] },
+                { numbers: [90] }
+            ];
+            
+            let soldNumbers = [];
+            prevendite.forEach(purchase => {
+                soldNumbers = [...soldNumbers, ...purchase.numbers];
+            });
+            
+            // Aggiungi anche numeri da acquisti online se esistenti
+            if (window.lotteryState && window.lotteryState.purchasedNumbers) {
+                window.lotteryState.purchasedNumbers.forEach(purchase => {
+                    soldNumbers = [...soldNumbers, ...purchase.numbers];
+                });
+            }
+            
+            return soldNumbers;
+        }
+        
+        function updateUI() {
+            const soldNumbers = getSoldNumbers();
+            
+            // Aggiorna griglia
+            document.querySelectorAll('.number-box').forEach(box => {
+                const number = parseInt(box.dataset.number);
+                box.className = 'number-box';
+                
+                if (selectedNumbers.includes(number)) {
+                    box.classList.add('selected');
+                } else if (soldNumbers.includes(number)) {
+                    box.classList.add('sold');
+                    box.style.pointerEvents = 'none'; // Disabilita click
+                } else {
+                    box.classList.add('available');
+                    box.style.pointerEvents = 'auto'; // Abilita click
+                }
+            });
+            
+            // Aggiorna pannello selezione
+            const selectedEl = document.getElementById('selectedNumbers');
+            const priceEl = document.getElementById('totalPrice');
+            const buyBtn = document.getElementById('buyButton');
+            
+            if (selectedNumbers.length > 0) {
+                selectedEl.innerHTML = `
+                    <strong>🎯 Numeri selezionati:</strong><br>
+                    <span style="font-size: 1.5rem; color: #ffd700;">${selectedNumbers.sort((a,b) => a-b).join(', ')}</span>
+                `;
+                const totalPrice = selectedNumbers.length * pricePerNumber;
+                priceEl.innerHTML = `
+                    <span style="color: #4ade80;">${selectedNumbers.length} × €5 = </span>
+                    <strong>€${totalPrice.toFixed(2)}</strong>
+                `;
+                buyBtn.disabled = false;
+                buyBtn.style.opacity = '1';
+            } else {
+                selectedEl.innerHTML = '🎯 Clicca sui numeri per selezionarli<br><small>(massimo 10 numeri)</small>';
+                priceEl.innerHTML = '€0,00';
+                buyBtn.disabled = true;
+                buyBtn.style.opacity = '0.5';
+            }
+            
+            // Aggiorna contatori
+            updateCounters();
+        }
+        
+        function updateCounters() {
+            const soldNumbers = getSoldNumbers();
+            const soldCount = soldNumbers.length;
+            const availableCount = 90 - soldCount;
+            const selectedCount = selectedNumbers.length;
+            
+            // Mostra statistiche
+            const statsHtml = `
+                <div style="display: flex; justify-content: space-around; margin-top: 15px; font-size: 0.9rem;">
+                    <span>🔴 Venduti: <strong>${soldCount}</strong></span>
+                    <span>🟢 Disponibili: <strong>${availableCount}</strong></span>
+                    <span>⭐ Selezionati: <strong>${selectedCount}/10</strong></span>
+                </div>
+            `;
+            
+            const statsContainer = document.getElementById('numbersStats');
+            if (statsContainer) {
+                statsContainer.innerHTML = statsHtml;
+            }
+        }
+        
+        function setupEventListeners() {
+            // Pulsante acquisto
+            document.getElementById('buyButton').addEventListener('click', processPayment);
+            
+            // Pulsante cancella
+            document.getElementById('clearButton').addEventListener('click', () => {
+                selectedNumbers = [];
+                updateUI();
+            });
+        }
+        
+        function processPayment() {
+            if (selectedNumbers.length === 0) {
+                showToast('Seleziona almeno un numero!', 'error');
+                return;
+            }
+            
+            // Verifica che i numeri non siano già venduti
+            const soldNumbers = getSoldNumbers();
+            const conflicts = selectedNumbers.filter(num => soldNumbers.includes(num));
+            
+            if (conflicts.length > 0) {
+                showToast(`Numeri ${conflicts.join(', ')} già venduti da altri utenti!`, 'error');
+                return;
+            }
+            
+            // Calcola totale
+            const total = selectedNumbers.length * pricePerNumber;
+            
+            // Salva dati per PayPal return
+            const paymentData = {
+                numbers: [...selectedNumbers],
+                total: total,
+                timestamp: Date.now(),
+                buyer: {
+                    name: prompt('Inserisci il tuo nome per la registrazione:') || 'Anonimo'
+                }
+            };
+            
+            if (safeLocalStorage.set('lotteryPaymentData', JSON.stringify(paymentData))) {
+                console.log('✅ Dati pagamento salvati');
+            } else {
+                console.warn('⚠️ Impossibile salvare dati pagamento');
+            }
+            
+            // Crea form PayPal
+            createPayPalForm(paymentData);
+        }
+        
+        function createPayPalForm(data) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://www.paypal.com/cgi-bin/webscr';
+            form.style.display = 'none';
+            
+            const fields = {
+                'cmd': '_xclick',
+                'business': 'sideroalessandro90@gmail.com',
+                'item_name': `Lotteria Natale 2025 - Numeri: ${data.numbers.join(', ')}`,
+                'amount': data.total.toFixed(2),
+                'currency_code': 'EUR',
+                'return': window.location.href + '?lottery=success',
+                'cancel_return': window.location.href + '?lottery=cancelled'
+            };
+            
+            Object.keys(fields).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            });
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+        
+        function loadLotteryData() {
+            // Carica dati da Firebase o localStorage
+            if (typeof loadLotteryFromLocalStorage === 'function') {
+                loadLotteryFromLocalStorage();
+            }
+            updatePurchasesList();
+        }
+        
+        function updatePurchasesList() {
+            console.log('🔄 Aggiornamento lista acquisti...');
+            const container = document.getElementById('purchasesList');
+            
+            if (!container) {
+                console.error('❌ Container purchasesList non trovato!');
+                return;
+            }
+            
+            console.log('✅ Container trovato, carico prevendite...');
+            
+            // Dati pre-vendite (17 numeri già venduti)
+            const prevendite = [
+                { numbers: [6,10,16], buyerName: "Antonella Bruno", method: "Contanti", total: 15, timestamp: Date.now() - 86400000 },
+                { numbers: [4], buyerName: "Lina Galuppo", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [28,66], buyerName: "Francesco Sidero", method: "Contanti", total: 10, timestamp: Date.now() - 86400000 },
+                { numbers: [9,57], buyerName: "Rocco Palmisano", method: "Contanti", total: 10, timestamp: Date.now() - 86400000 },
+                { numbers: [8], buyerName: "Francesca Dylan", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [89,29], buyerName: "Laura Bruno", method: "Contanti", total: 10, timestamp: Date.now() - 86400000 },
+                { numbers: [22], buyerName: "Carla (Mamma Federico)", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [69], buyerName: "Manuela Giordano", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [13], buyerName: "Francesco Petronelli", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [35], buyerName: "Ylenia Tarantino", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [59], buyerName: "Giada Sidero", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [90], buyerName: "Sidero Alessandro", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 }
+            ];
+            
+            // Combina prevendite con acquisti online (se esistenti)
+            let allPurchases = [...prevendite];
+            
+            if (window.lotteryState && window.lotteryState.purchasedNumbers) {
+                // Aggiungi nuovi acquisti online
+                const onlinePurchases = window.lotteryState.purchasedNumbers.filter(purchase => 
+                    purchase.method === 'PayPal'
+                );
+                allPurchases = [...allPurchases, ...onlinePurchases];
+            }
+            
+            // Ordina per timestamp (più recenti prima)
+            allPurchases.sort((a, b) => b.timestamp - a.timestamp);
+            
+            if (allPurchases.length === 0) {
+                container.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nessun acquisto registrato</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            allPurchases.forEach((purchase, index) => {
+                const item = document.createElement('div');
+                item.className = 'purchase-item';
+                
+                // Determina se è nuovo (meno di 30 secondi fa)
+                const isNew = purchase.method === 'PayPal' && (Date.now() - purchase.timestamp) < 30000;
+                
+                item.innerHTML = `
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                            <strong style="color: #ffd700;">${purchase.buyerName}</strong>
+                            <span style="
+                                background: ${purchase.method === 'PayPal' ? 'linear-gradient(45deg, #0070ba, #003087)' : 'linear-gradient(45deg, #22c55e, #16a34a)'};
+                                color: white;
+                                padding: 2px 8px;
+                                border-radius: 12px;
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                            ">${purchase.method}</span>
+                            ${isNew ? '<span style="background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; animation: pulse 1s infinite;">🆕 NUOVO</span>' : ''}
+                        </div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">
+                            Numeri: <span style="color: #fbbf24; font-weight: 600;">${purchase.numbers.join(', ')}</span>
+                        </div>
+                        <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 3px;">
+                            ${new Date(purchase.timestamp).toLocaleString('it-IT')}
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.2rem; font-weight: 700; color: #10b981;">€${purchase.total}</div>
+                        <div style="font-size: 0.8rem; color: #94a3b8;">${purchase.numbers.length} numero${purchase.numbers.length > 1 ? 'i' : ''}</div>
+                    </div>
+                `;
+                
+                // Effetto evidenziazione per nuovi acquisti
+                if (isNew) {
+                    item.style.background = 'linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.05))';
+                    item.style.border = '2px solid rgba(34, 197, 94, 0.3)';
+                    item.style.boxShadow = '0 8px 25px rgba(34, 197, 94, 0.2)';
+                }
+                
+                container.appendChild(item);
+            });
+            
+            // Aggiungi statistiche totali
+            const totalContainer = document.createElement('div');
+            totalContainer.style.cssText = `
+                margin-top: 20px;
+                padding: 15px;
+                background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(200,16,46,0.1));
+                border-radius: 10px;
+                border: 1px solid rgba(255,215,0,0.2);
+                text-align: center;
+            `;
+            
+            const totalRevenue = allPurchases.reduce((sum, p) => sum + p.total, 0);
+            const totalNumbers = allPurchases.reduce((sum, p) => sum + p.numbers.length, 0);
+            
+            totalContainer.innerHTML = `
+                <div style="display: flex; justify-content: space-around; color: #ffd700;">
+                    <div><strong>${allPurchases.length}</strong><br><small>Acquisti</small></div>
+                    <div><strong>${totalNumbers}</strong><br><small>Numeri venduti</small></div>
+                    <div><strong>€${totalRevenue}</strong><br><small>Incasso totale</small></div>
+                </div>
+            `;
+            
+            container.appendChild(totalContainer);
+        }
+        
+        function startCountdown() {
+            const targetDate = new Date('2025-12-24T18:30:00');
+            const timerEl = document.getElementById('countdownTimer');
+            
+            function updateCountdown() {
+                const now = new Date();
+                const diff = targetDate - now;
+                
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    timerEl.textContent = `⏰ ${days}g ${hours}h ${minutes}m ${seconds}s all'estrazione`;
+                } else {
+                    timerEl.textContent = '🎉 ESTRAZIONE COMPLETATA!';
+                }
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Toast notifications
+        function showToast(message, type = 'info', duration = 4000) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, duration);
+        }
+        
+        // Gestione return da PayPal
+        function handlePayPalReturn() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.has('lottery')) {
+                const status = urlParams.get('lottery');
+                const paymentData = safeLocalStorage.get('lotteryPaymentData');
+                
+                if (status === 'success' && paymentData) {
+                    try {
+                        const data = JSON.parse(paymentData);
+                        
+                        // Salva acquisto localmente
+                        const purchaseRecord = {
+                            numbers: data.numbers,
+                            buyerName: data.buyer.name,
+                            timestamp: data.timestamp,
+                            method: 'PayPal',
+                            total: data.total
+                        };
+                        
+                        // Prova Firebase se disponibile
+                        if (window.savePurchaseToFirebase && typeof window.savePurchaseToFirebase === 'function') {
+                            window.savePurchaseToFirebase(purchaseRecord);
+                        } else if (window.savePurchaseLocally && typeof window.savePurchaseLocally === 'function') {
+                            window.savePurchaseLocally(purchaseRecord);
+                        }
+                        
+                        showToast(`🎄 Pagamento completato! Numeri: ${data.numbers.join(', ')}`, 'success', 8000);
+                        
+                        // Reset
+                        selectedNumbers = [];
+                        safeLocalStorage.remove('lotteryPaymentData');
+                        
+                        // Pulisci URL
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                        
+                        updateUI();
+                        updatePurchasesList();
+                        
+                    } catch (error) {
+                        console.error('❌ Errore processing return:', error);
+                        showToast('Errore nella conferma del pagamento', 'error');
+                    }
+                    
+                } else if (status === 'cancelled') {
+                    showToast('Pagamento annullato', 'info');
+                    safeLocalStorage.remove('lotteryPaymentData');
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+        }
+        
+        console.log('🎄 Lotteria Natale 2025 pronta!');
+        
+        // Debug: Verifica funzioni critiche
+        window.addEventListener('load', () => {
+            console.log('✅ Funzioni caricate:', {
+                getSoldNumbers: typeof getSoldNumbers,
+                updateUI: typeof updateUI,
+                updateCounters: typeof updateCounters,
+                selectNumber: typeof selectNumber
+            });
+            
+            // Forza inizializzazione se non è già stata fatta
+            setTimeout(() => {
+                const grid = document.getElementById('numbersGrid');
+                const purchases = document.getElementById('purchasesList');
+                
+                if (grid && grid.innerHTML.trim() === '') {
+                    console.log('⚠️ Griglia vuota, forzando inizializzazione...');
+                    generateNumbersGrid();
+                    updateUI();
+                }
+                
+                if (purchases && purchases.innerHTML.trim() === '') {
+                    console.log('⚠️ Lista acquisti vuota, forzando aggiornamento...');
+                    updatePurchasesList();
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
