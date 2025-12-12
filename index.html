@@ -1026,7 +1026,8 @@
                 { numbers: [13] },
                 { numbers: [35] },
                 { numbers: [59] },
-                { numbers: [90] }
+                { numbers: [90] },
+                { numbers: [11,21,73] }
             ];
             
             let soldNumbers = [];
@@ -1208,7 +1209,7 @@
             
             console.log('✅ Container trovato, carico prevendite...');
             
-            // Dati pre-vendite (17 numeri già venduti)
+            // Dati pre-vendite (20 numeri già venduti)
             const prevendite = [
                 { numbers: [6,10,16], buyerName: "Antonella Bruno", method: "Contanti", total: 15, timestamp: Date.now() - 86400000 },
                 { numbers: [4], buyerName: "Lina Galuppo", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
@@ -1221,7 +1222,8 @@
                 { numbers: [13], buyerName: "Francesco Petronelli", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
                 { numbers: [35], buyerName: "Ylenia Tarantino", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
                 { numbers: [59], buyerName: "Giada Sidero", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
-                { numbers: [90], buyerName: "Sidero Alessandro", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 }
+                { numbers: [90], buyerName: "Sidero Alessandro", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
+                { numbers: [11,21,73], buyerName: "Ilaria Sarah Biancalana", method: "PayPal", total: 15, timestamp: Date.now() - 3600000 }
             ];
             
             // Combina prevendite con acquisti online (se esistenti)
