@@ -1029,7 +1029,11 @@
                 { numbers: [90] },
                 { numbers: [11,21,73] },
                 { numbers: [7] },
-                { numbers: [14] }
+                { numbers: [14] },
+                { numbers: [20] },
+                { numbers: [32] },
+                { numbers: [84] },
+                { numbers: [46] }
             ];
             
             let soldNumbers = [];
@@ -1037,12 +1041,12 @@
                 soldNumbers = [...soldNumbers, ...purchase.numbers];
             });
             
-            // Aggiungi anche numeri da acquisti online se esistenti
-            if (window.lotteryState && window.lotteryState.purchasedNumbers) {
-                window.lotteryState.purchasedNumbers.forEach(purchase => {
-                    soldNumbers = [...soldNumbers, ...purchase.numbers];
-                });
-            }
+            // ⚠️ DISABILITATO per evitare duplicazioni - Firebase sync non necessario per prevendite hardcoded
+            // if (window.lotteryState && window.lotteryState.purchasedNumbers) {
+            //     window.lotteryState.purchasedNumbers.forEach(purchase => {
+            //         soldNumbers = [...soldNumbers, ...purchase.numbers];
+            //     });
+            // }
             
             return soldNumbers;
         }
@@ -1211,7 +1215,7 @@
             
             console.log('✅ Container trovato, carico prevendite...');
             
-            // Dati pre-vendite (22 numeri già venduti)
+            // Dati pre-vendite (26 numeri già venduti - conteggio corretto)
             const prevendite = [
                 { numbers: [6,10,16], buyerName: "Antonella Bruno", method: "Contanti", total: 15, timestamp: Date.now() - 86400000 },
                 { numbers: [4], buyerName: "Lina Galuppo", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
@@ -1227,7 +1231,11 @@
                 { numbers: [90], buyerName: "Sidero Alessandro", method: "Contanti", total: 5, timestamp: Date.now() - 86400000 },
                 { numbers: [11,21,73], buyerName: "Ilaria Sarah Biancalana", method: "PayPal", total: 15, timestamp: Date.now() - 3600000 },
                 { numbers: [7], buyerName: "Mauro Pastorino", method: "PayPal", total: 5, timestamp: Date.now() - 1800000 },
-                { numbers: [14], buyerName: "Claudio Satta", method: "PayPal", total: 5, timestamp: Date.now() - 1200000 }
+                { numbers: [14], buyerName: "Claudio Satta", method: "PayPal", total: 5, timestamp: Date.now() - 1200000 },
+                { numbers: [20], buyerName: "Alysea", method: "Contanti", total: 5, timestamp: Date.now() - 600000 },
+                { numbers: [32], buyerName: "Simone Stadio cappellino", method: "Contanti", total: 5, timestamp: Date.now() - 300000 },
+                { numbers: [84], buyerName: "Carlo Stadio Amico simone", method: "Contanti", total: 5, timestamp: Date.now() - 180000 },
+                { numbers: [46], buyerName: "Alby Katia", method: "Contanti", total: 5, timestamp: Date.now() - 60000 }
             ];
             
             // Combina prevendite con acquisti online (se esistenti)
