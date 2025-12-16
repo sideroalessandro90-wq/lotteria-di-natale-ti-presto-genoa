@@ -1,0 +1,21 @@
+# Headers per ridurre warning browser e tracking prevention
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: storage-access=*, browsing-topics=()
+  X-Robots-Tag: noindex, nofollow
+  
+# Cache Control per performance
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Security Headers specifici
+/manifest.json
+  Content-Type: application/manifest+json
+  
+/favicon.ico
+  Cache-Control: public, max-age=86400

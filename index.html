@@ -1,0 +1,1436 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <!-- 🚫 BLOCCO IMMEDIATO E TOTALE Tracking Prevention -->
+  <script>
+    // INTERCETTAZIONE TOTALE - Browser + JavaScript
+    (function() {
+      'use strict';
+      
+      // ===== INTERCETTAZIONE BROWSER NATIVO =====
+      
+      // Override COMPLETO window.console prima di qualsiasi altro script
+      const originalConsole = { ...window.console };
+      
+      // Lista completa di pattern da bloccare SEMPRE
+      const BLOCKED_PATTERNS = [
+        'tracking prevention', 'blocked access to storage', 'webkit-masked-url',
+        'cross-origin', 'storage bloccato', 'firebase non disponibile',
+        'errore inizializzazione firebase', 'errore login firebase',
+        'intervention', 'images loaded lazily', 'load events are deferred',
+        'manifest:', 'enctype should be set', 'it currently defaults'
+      ];
+      
+      // Lista messaggi permessi
+      const ALLOWED_PATTERNS = [
+        '🛡️', '✅', '🧪', '🎄', '🔧', '🚨', '💡', '🔥', '🔍', '⚠️', '❌', '⏳', '💾', '🎯',
+        'firebase lottery configurato', 'emailjs inizializzato', 'christmas mode',
+        'debug disponibili', 'homepage caricata'
+      ];
+      
+      // Funzione filtro ULTRA AGGRESSIVA
+      function isBlocked(message) {
+        const msg = (message || '').toLowerCase();
+        return BLOCKED_PATTERNS.some(pattern => msg.includes(pattern));
+      }
+      
+      function isAllowed(message) {
+        const msg = (message || '').toLowerCase();
+        return ALLOWED_PATTERNS.some(pattern => msg.includes(pattern));
+      }
+      
+      // Override TUTTI i metodi console
+      ['log', 'warn', 'error', 'info', 'debug', 'trace'].forEach(method => {
+        window.console[method] = function(...args) {
+          const message = args.join(' ');
+          
+          // BLOCCA SEMPRE pattern vietati
+          if (isBlocked(message)) {
+            return; // SILENZIO TOTALE
+          }
+          
+          // PERMETTI solo se whitelisted
+          if (isAllowed(message)) {
+            originalConsole[method]?.apply(console, args);
+          }
+        };
+      });
+      
+      // ===== INTERCETTAZIONE ERRORI BROWSER =====
+      
+      // Blocca window.onerror
+      window.onerror = function(message, source, lineno, colno, error) {
+        const msg = (message || '').toLowerCase();
+        if (isBlocked(msg)) {
+          return true; // Blocca completamente
+        }
+        return false;
+      };
+      
+      // Blocca unhandledrejection
+      window.addEventListener('unhandledrejection', function(event) {
+        const msg = (event.reason?.toString() || '').toLowerCase();
+        if (isBlocked(msg)) {
+          event.preventDefault();
+          return;
+        }
+      });
+      
+      // ===== INTERCETTAZIONE PERFORMANCE API =====
+      
+      // Override performance observer per bloccare warning browser
+      if (window.PerformanceObserver) {
+        const OriginalPerformanceObserver = window.PerformanceObserver;
+        window.PerformanceObserver = function(...args) {
+          try {
+            return new OriginalPerformanceObserver(...args);
+          } catch (e) {
+            // Silenzioso se problemi di tracking prevention
+            return { observe: () => {}, disconnect: () => {} };
+          }
+        };
+      }
+      
+      console.log('🛡️ FILTRO CONSOLE INTELLIGENTE ATTIVO - Solo messaggi utili visibili');
+      
+      // ===== INTERCETTAZIONE STORAGE API =====
+      
+      // Override localStorage per evitare warning tracking prevention
+      if (window.localStorage) {
+        const originalLocalStorage = window.localStorage;
+        const storageProxy = {
+          getItem: function(key) {
+            try {
+              return originalLocalStorage.getItem(key);
+            } catch (e) {
+              return null; // Silenzioso
+            }
+          },
+          setItem: function(key, value) {
+            try {
+              return originalLocalStorage.setItem(key, value);
+            } catch (e) {
+              return; // Silenzioso
+            }
+          },
+          removeItem: function(key) {
+            try {
+              return originalLocalStorage.removeItem(key);
+            } catch (e) {
+              return; // Silenzioso
+            }
+          },
+          clear: function() {
+            try {
+              return originalLocalStorage.clear();
+            } catch (e) {
+              return; // Silenzioso
+            }
+          },
+          get length() {
+            try {
+              return originalLocalStorage.length;
+            } catch (e) {
+              return 0;
+            }
+          },
+          key: function(index) {
+            try {
+              return originalLocalStorage.key(index);
+            } catch (e) {
+              return null;
+            }
+          }
+        };
+        
+        // Sostituisci localStorage con proxy silenzioso
+        Object.defineProperty(window, 'localStorage', {
+          value: storageProxy,
+          writable: false
+        });
+      }
+      
+    })();
+  </script>
+  </script>
+  
+
+      
+  <!-- BLOCCO errori Tracking Prevention + Debug Firebase -->
+  <script>
+    (function() {
+      'use strict';
+      
+      // 🔍 Debug Firebase permissions - Mostra errori specifici
+      window.addEventListener('error', function(e) {
+        // Mostra errori Firebase importanti
+        if (e.message && e.message.includes('Firebase')) {
+          console.error('🔥 Errore Firebase:', e.message);
+        }
+        
+        // Blocca solo errori Tracking Prevention
+        if (e.message && e.message.includes('Tracking Prevention blocked')) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          return false;
+        }
+      }, true);
+      
+      // Override window.onerror con debug Firebase
+      const originalOnError = window.onerror;
+      window.onerror = function(msg, url, line, col, error) {
+        // Debug per Firebase
+        if (msg && msg.includes('Firebase')) {
+          console.error('🔥 Firebase Error Detected:', {msg, url, line, error});
+        }
+        
+        // Blocca solo Tracking Prevention
+        if (msg && msg.includes('Tracking Prevention blocked')) {
+          return true;
+        }
+        if (originalOnError) {
+          return originalOnError.apply(window, arguments);
+        }
+        return false;
+      };
+      
+      // Override unhandledrejection con debug Firebase
+      window.addEventListener('unhandledrejection', function(e) {
+        const reason = String(e.reason);
+        
+        // Debug Firebase promise rejections
+        if (reason.includes('Firebase') || reason.includes('permission')) {
+          console.error('🔥 Firebase Promise Rejected:', e.reason);
+        }
+        
+        // Blocca solo Tracking Prevention
+        if (reason.includes('Tracking Prevention blocked')) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+      
+    })();
+  </script>
+      
+  <!-- BLOCCO localStorage per prevenire errori -->
+  <script>
+    (function() {
+      'use strict';
+      
+      // BLOCCO TOTALE localStorage per prevenire errori
+      try {
+        const memoryStorage = {};
+        Object.defineProperty(window, 'localStorage', {
+          value: {
+            getItem: (key) => memoryStorage[key] || null,
+            setItem: (key, value) => memoryStorage[key] = value,
+            removeItem: (key) => delete memoryStorage[key],
+            clear: () => Object.keys(memoryStorage).forEach(k => delete memoryStorage[k]),
+            key: (index) => Object.keys(memoryStorage)[index] || null,
+            get length() { return Object.keys(memoryStorage).length; }
+          },
+          writable: false,
+          configurable: false
+        });
+        
+        // Blocca anche sessionStorage
+        Object.defineProperty(window, 'sessionStorage', {
+          value: window.localStorage,
+          writable: false,
+          configurable: false
+        });
+        
+      } catch (e) {
+        // Fallback silenzioso
+      }
+    })();
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6S3XV4K3D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E6S3XV4K3D');
+  </script>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ti Presto - L'Abbonamento Genoa CFC 1893</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Ti Presto - Marketplace sicuro per abbonamenti Genoa CFC 1893. Compra e vendi abbonamenti per le partite casalinghe al Luigi Ferraris.">
+  <meta name="keywords" content="Genoa CFC, abbonamenti, Serie A, calcio, Genova, Marassi, rossoblù">
+  <meta name="author" content="Ti Presto - Genoanix">
+  
+  <!-- Security & Performance Headers -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="storage-access=*, browsing-topics=()">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Ti Presto - L'Abbonamento Genoa CFC 1893">
+  <meta property="og:description" content="Marketplace sicuro per abbonamenti Genoa CFC 1893. Compra e vendi in sicurezza.">
+  <meta property="og:image" content="https://www.tiprestogenoa.it/logo-ufficiale-genoa-cfc.png">
+  <meta property="og:url" content="https://www.tiprestogenoa.it">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ti Presto Genoa">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ti Presto - L'Abbonamento Genoa CFC 1893">
+  <meta name="twitter:description" content="Marketplace sicuro per abbonamenti Genoa CFC">
+  <meta name="twitter:image" content="https://www.tiprestogenoa.it/logo-ufficiale-genoa-cfc.png">
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#c8102e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Ti Presto">
+  
+  <link href="style.css" rel="stylesheet"/>
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="script.js" as="script">
+  
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="True" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9296204418773477"
+       crossorigin="anonymous"></script>
+  
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+  
+  <!-- EmailJS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+  <!-- Skip to Content per Accessibilità -->
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+  
+<header>
+  <div aria-label="Data e ora in tempo reale" id="liveDateTime"></div>
+  <div class="site-brand">
+    <span aria-live="polite" class="live-badge" id="liveBadge" style="display:none">LIVE</span>
+    <img alt="Logo Ufficiale Genoa CFC" class="brand-logo" src="logo-ufficiale-genoa-cfc.png" loading="lazy"/>
+    <h1 class="brand-title">
+      <span class="title-main">Ti Presto</span>
+      <span class="title-sub">L'Abbonamento Genoa CFC 1893</span>
+    </h1>
+  </div>
+  <nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('booking')">Vendita Abbonamenti</button>
+    <button onclick="showSection('profile')">Profilo</button>
+    <button onclick="showSection('history')">Storico</button>
+    <button id="trattativeBtn" class="trattative-btn" onclick="showSection('mySubscription')">Le tue Trattative<span id="mySubBadge" class="badge count" style="display:none;margin-left:6px">0</span></button>
+    <button onclick="showSection('contacts')">Contatti</button>
+    <!-- 📊 Pulsante Statistiche nascosto (easter egg) -->
+    <button onclick="showStatsModal()" style="opacity: 0.7; font-size: 0.9em;" title="Statistiche Community">📊</button>
+  </nav>
+  <div id="userControls">
+    <button id="loginBtn" onclick="toggleModal(true)" style="display:none;">Login</button>
+    <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+    
+    <!-- 🎫 Icona Biglietto per Dati Venditore -->
+    <div id="ticketNotification" onclick="openTicketModal()" title="Dati Venditore Ricevuti">
+      <div class="ticket-icon">🎫</div>
+      <span id="ticketBadge" class="ticket-badge">0</span>
+      <div class="ticket-pulse"></div>
+    </div>
+    
+    <div id="notificationBell" onclick="openNotifications()" title="Messaggi Chat">
+      <div class="bell-icon">🔔</div>
+      <span id="notificationCount" class="notification-badge">0</span>
+      <div id="notificationDropdown" class="notification-dropdown" style="display:none;">
+        <div class="notification-header">
+          <h3>� Messaggi Chat</h3>
+          <button onclick="markAllAsRead()" class="mark-read-btn">Segna tutti come letti</button>
+        </div>
+        <div id="notificationList" class="notification-list">
+          <div class="no-notifications">Nessun nuovo messaggio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Hero stile Sky Sport, senza pulsante -->
+<section id="nextMatchSection">
+  <div class="league-tag">Serie A</div>
+  <div class="next-match-card" id="nextMatch">
+    <div aria-label="Logo squadra di casa" class="team logo-left" id="homeTeamLogo"></div>
+    <div class="match-info">
+      <div class="match-description" id="matchDescription"></div>
+      <div class="vs-badge">VS</div>
+      <div class="match-datetime" id="matchDateTime"></div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+    <div aria-label="Logo squadra ospite" class="team logo-right" id="awayTeamLogo"></div>
+  </div>
+</section>
+
+<!-- Prossima Partita in Casa -->
+<section id="upcomingMatchSection">
+  <div class="upcoming-match-card">
+    <div class="upcoming-header">
+      <span class="upcoming-label">PROSSIMA PARTITA IN CASA</span>
+    </div>
+    <div class="upcoming-match-content">
+      <div class="upcoming-team-left">
+        <img src="img/genoa.png" alt="Logo Genoa" class="upcoming-logo">
+      </div>
+      <div class="upcoming-match-info">
+        <div class="upcoming-teams">GENOA - VERONA</div>
+        <div class="upcoming-datetime">Sabato 29/11/2025 ore 15:00</div>
+      </div>
+      <div class="upcoming-team-right">
+        <img src="img/verona.png" alt="Logo Verona" class="upcoming-logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sezioni principali -->
+<section class="section active" id="home">
+  
+  <!-- Banner Lotteria Natale 2025 - POSIZIONE IN ALTO -->
+  <div class="christmas-lottery-banner" style="
+    background: linear-gradient(135deg, #c8102e 0%, #002147 100%);
+    color: white;
+    padding: 25px;
+    margin: 0 0 25px 0;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(200, 16, 46, 0.3);
+    position: relative;
+    overflow: hidden;
+  ">
+    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">🎄</div>
+    <div style="position: absolute; bottom: -10px; left: -10px; font-size: 3rem; opacity: 0.1;">🎁</div>
+    
+    <h2 style="margin: 0 0 10px 0; font-size: 1.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+      🎄 LOTTERIA DI NATALE 2025 🎄
+    </h2>
+    
+    <p style="margin: 10px 0; font-size: 1.1rem; opacity: 0.95;">
+      ⚽ <strong>Vinci premi fantastici</strong> • €5 per numero • Max 10 numeri a persona
+    </p>
+    
+    <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+      <div style="font-size: 0.9rem; opacity: 0.9;">🎯 Estrazione: <strong>24 Dicembre 2025</strong></div>
+    </div>
+    
+    <button class="christmas-lottery-btn" onclick="
+      if (typeof openChristmasLottery === 'function') {
+        openChristmasLottery();
+      } else {
+        alert('🎄 Lotteria in caricamento... riprova tra un momento!');
+        setTimeout(() => location.reload(), 1000);
+      }
+    " style="
+      background: white;
+      color: #c8102e;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      margin-top: 10px;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      🎁 Partecipa alla Lotteria
+    </button>
+  </div>
+
+  <div id="main-content">
+    <h2>Abbonamenti in Vendita</h2>
+  <div id="homeListings">
+    <div class="home-listing-item">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <img src="img/genoa.png" alt="Logo Genoa" style="height:48px;">
+        <span style="font-weight:600;font-size:1.2em;">GENOA</span>
+        <span style="margin:0 8px;font-weight:bold;">VS</span>
+        <img src="img/lazio.png" alt="Logo Lazio" style="height:48px;">
+        <span style="font-weight:600;font-size:1.2em;">LAZIO</span>
+      </div>
+      <p>Stadio Luigi Ferraris, Data: <strong>29 settembre 2025</strong>, Ore: <strong>20:45</strong></p>
+      <div id="matchCountdownGenoaLazio" style="font-size:1.1em;font-weight:500;color:#dc3545;margin:8px 0;"></div>
+      <button>Vedi dettagli</button>
+    </div>
+  </div>
+</section>
+<section class="section" id="booking">
+  <div class="booking-header">
+    <div class="booking-icon">🎫</div>
+    <div class="booking-title-section">
+      <h2>Metti in Vendita il tuo Abbonamento</h2>
+      <p class="booking-subtitle">Condividi il tuo posto con altri tifosi del Genoa</p>
+    </div>
+  </div>
+  
+  <div class="booking-form-container">
+    <form id="bookingForm" onsubmit="prenotaAbbonamento(event)" enctype="application/x-www-form-urlencoded">
+      <div class="form-section">
+        <div class="form-group">
+          <label for="matchSelect">
+            <span class="label-icon">⚽</span>
+            Seleziona Partita
+          </label>
+          <select id="matchSelect" required="">
+            <option value="">Scegli la partita...</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="sectorSelect">
+            <span class="label-icon">🏟️</span>
+            Seleziona Settore
+          </label>
+          <select id="sectorSelect" required="">
+            <option value="">Scegli il settore...</option>
+          </select>
+          <small class="sector-help">Il prezzo sarà calcolato automaticamente in base al settore</small>
+        </div>
+      </div>
+      
+      <div class="booking-actions">
+        <button type="submit" class="btn-sell-subscription" id="sellButton">
+          <span class="btn-icon">💰</span>
+          <span class="btn-text">Metti in Vendita</span>
+        </button>
+        <p class="booking-disclaimer">
+          Il tuo abbonamento sarà visibile agli altri utenti una volta confermato
+        </p>
+      </div>
+      
+      <!-- Boost Premium Section - Stile Vinted -->
+      <div class="boost-section-vinted">
+        <div class="boost-header">
+          <h4>⚡ Vendi prima con un boost</h4>
+          <span class="boost-price">da €1,79</span>
+        </div>
+        <p class="boost-description">
+          Raggiungi più genoani e aumenta le probabilità di vendere il tuo abbonamento.
+        </p>
+        <div class="boost-actions">
+          <a href="#" onclick="showBoostInfo(event)" class="boost-learn-more">Scopri di più</a>
+          <label class="boost-checkbox-container">
+            <input type="checkbox" id="premiumBoost" onchange="onBoostCheckboxChange()" />
+            <span class="boost-checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section class="section" id="profile">
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <div class="avatar-circle">
+          <span class="avatar-initial" id="userInitial">U</span>
+        </div>
+        <div class="avatar-info">
+          <h2 class="profile-title">👤 Profilo Utente</h2>
+          <p class="profile-subtitle">Gestisci le tue informazioni personali</p>
+          <div class="verification-status">
+            <span class="badge small" id="emailVerifiedBadge"></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-number" id="userSubscriptions">0</span>
+          <span class="stat-label">Abbonamenti</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="userTransactions">0</span>
+          <span class="stat-label">Transazioni</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="profile-form-section">
+        <h3 class="section-subtitle">📝 Informazioni Personali</h3>
+        <form id="profileForm" onsubmit="saveProfile(event)" class="modern-form" enctype="application/x-www-form-urlencoded">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profileNome">
+                <span class="label-icon">👤</span>
+                Nome
+              </label>
+              <input id="profileNome" required type="text" placeholder="Inserisci il tuo nome"/>
+            </div>
+            <div class="form-group">
+              <label for="profileCognome">
+                <span class="label-icon">👤</span>
+                Cognome
+              </label>
+              <input id="profileCognome" required type="text" placeholder="Inserisci il tuo cognome"/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profileDataNascita">
+                <span class="label-icon">🎂</span>
+                Data di Nascita
+              </label>
+              <input id="profileDataNascita" required type="date"/>
+            </div>
+            <div class="form-group">
+              <label for="profileEmail">
+                <span class="label-icon">📧</span>
+                Email
+              </label>
+              <input id="profileEmail" required type="email" placeholder="tua.email@esempio.com"/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="profileTelefono">
+                <span class="label-icon">📱</span>
+                Telefono
+              </label>
+              <input id="profileTelefono" required type="tel" placeholder="+39 123 456 7890"/>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" onclick="resetProfile()" class="btn-secondary">
+              <span>🔄</span>
+              Ripristina
+            </button>
+            <button type="submit" class="btn-primary">
+              <span>💾</span>
+              Salva Profilo
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="profile-preferences">
+        <h3 class="section-subtitle">⚙️ Preferenze</h3>
+        <div class="preferences-grid">
+          <div class="preference-item">
+            <div class="preference-info">
+              <h4>🔔 Notifiche Email</h4>
+              <p>Ricevi aggiornamenti via email</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="emailNotifications">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="preference-item">
+            <div class="preference-info">
+              <h4>📱 Notifiche Push</h4>
+              <p>Notifiche in tempo reale</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pushNotifications">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="history">
+  <div class="section-header">
+    <div class="header-content">
+      <h2 class="section-title">📋 Storico Prenotazioni</h2>
+      <p class="section-subtitle">Tutte le tue trattative completate</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-card">
+        <span class="stat-number" id="totalTransactions">0</span>
+        <span class="stat-label">Transazioni</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="storico-container">
+    <div class="storico-filters">
+      <button class="filter-btn active" data-filter="all">🔄 Tutte</button>
+      <button class="filter-btn" data-filter="vendite">💰 Vendite</button>
+      <button class="filter-btn" data-filter="acquisti">🛒 Acquisti</button>
+    </div>
+    
+    <div id="storicoList" class="storico-list">
+      <!-- Contenuto generato dinamicamente -->
+    </div>
+  </div>
+  </div>
+</section>
+<section class="section" id="mySubscription">
+  <h2>Le tue Trattative</h2>
+  <div id="mySubscriptionContent"></div>
+</section>
+<section class="section" id="ticket" style="cursor:pointer;">
+  <h2>Il mio Abbonamento</h2>
+</section>
+
+<!-- Sezione Contatti -->
+<section class="section" id="contacts">
+  <div class="contacts-container">
+    <div class="contacts-header">
+      <h2>📞 Contatti e Informazioni</h2>
+      <p>Hai domande o vuoi segnalare un problema? Contattaci!</p>
+    </div>
+    
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-icon">🏢</div>
+        <h3>Proprietario del Servizio</h3>
+        <p><strong>Tiprestogenoa1893.it</strong></p>
+        <p>Piattaforma dedicata allo scambio sicuro di abbonamenti del Genoa CFC tra tifosi.</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Email di Contatto</h3>
+        <p><a href="mailto:dnagenoa@outlook.it" class="contact-link">dnagenoa@outlook.it</a></p>
+        <p>Rispondiamo entro 24-48 ore a tutte le richieste di supporto e informazioni.</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="contact-icon">📱</div>
+        <h3>Telefono</h3>
+        <p><a href="tel:+393454893705" class="contact-link">+39 345 489 3705</a></p>
+        <p>Disponibile per urgenze e assistenza diretta (orari ufficio).</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="contact-icon">⚖️</div>
+        <h3>Informazioni Legali</h3>
+        <p><strong>Privacy e GDPR</strong></p>
+        <p>Questo servizio è completamente conforme alle normative europee sulla privacy. I tuoi dati rimangono sul tuo dispositivo.</p>
+        <div class="legal-links">
+          <button onclick="showPrivacyPolicy()" class="legal-button">📄 Privacy Policy</button>
+          <button onclick="showCookieSettings()" class="legal-button">🍪 Cookie Settings</button>
+          <button onclick="EmailService.testEmail()" class="legal-button">📧 Test Email</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-section">
+      <h3>🔒 Sicurezza e Affidabilità</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-icon">🛡️</span>
+          <div>
+            <strong>Dati Sicuri</strong>
+            <p>Tutti i dati rimangono sul tuo dispositivo, nessun server esterno coinvolto</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🤝</span>
+          <div>
+            <strong>Comunità Genoa</strong>
+            <p>Servizio creato da tifosi per tifosi, supportiamo la nostra squadra del cuore</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">⚡</span>
+          <div>
+            <strong>Veloce e Gratuito</strong>
+            <p>Scambio abbonamenti senza commissioni, solo la passione rossoblù</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modale Chat -->
+<div class="modal" id="chatModal">
+  <div class="modal-content chat-modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">💬 Chat Trattativa</h2>
+      <span class="close" onclick="closeChatModal()">×</span>
+    </div>
+    <div class="modal-body">
+      <div id="chatBox"></div>
+      <div class="chat-input-container">
+        <input id="chatInput" placeholder="💭 Scrivi un messaggio..." type="text"/>
+        <button onclick="sendMessage()" class="send-btn">
+          <span>📤</span>
+          Invia
+        </button>
+      </div>
+      <div id="chatActions" class="chat-actions"></div>
+    </div>
+  </div>
+</div>
+<!-- Modale Dati Vendita (nuova modale per invio dati all'acquirente) -->
+<div class="modal" id="datiVenditaModal" style="display:none;justify-content:center;align-items:center;">
+  <div class="modal-content">
+    <span class="close" onclick="closeDatiVenditaModal()">×</span>
+    <h2>Invia i tuoi dati all'acquirente</h2>
+    <p>Per accordarti sul pagamento, invia i tuoi dati di contatto:</p>
+    <form id="datiVenditaForm">
+      <label>Email:</label>
+      <input type="email" id="datiVenditaEmail" required />
+      <label>Telefono:</label>
+      <input type="text" id="datiVenditaTelefono" required />
+      <button type="submit" class="btn-accept">Invia dati</button>
+    </form>
+  </div>
+</div>
+
+<!-- 📊 POPUP STATISTICHE SITO -->
+<div class="modal" id="statsModal" style="display:none;">
+  <div class="modal-content stats-modal-content">
+    <div class="stats-modal-header">
+      <div class="stats-logo">⚽</div>
+      <h2 class="stats-title">Benvenuto nella Community <span class="genoa-text">Ti Presto</span>!</h2>
+      <span class="close" onclick="closeStatsModal()">×</span>
+    </div>
+    <div class="stats-modal-body">
+      <div class="stats-intro">
+        <p>🔥 La piattaforma di scambio abbonamenti del <strong>Genoa CFC</strong> più attiva!</p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card stat-users">
+          <div class="stat-icon">👥</div>
+          <div class="stat-number" id="statsUsersCount">---</div>
+          <div class="stat-label">Tifosi Registrati</div>
+        </div>
+        
+        <div class="stat-card stat-selling">
+          <div class="stat-icon">🎫</div>
+          <div class="stat-number" id="statsSellingCount">---</div>
+          <div class="stat-label">Abbonamenti in Vendita</div>
+        </div>
+        
+        <div class="stat-card stat-sold">
+          <div class="stat-icon">✅</div>
+          <div class="stat-number" id="statsSoldCount">---</div>
+          <div class="stat-label">Transazioni Completate</div>
+        </div>
+      </div>
+      
+      <div class="stats-cta">
+        <p>🚀 <strong>Unisciti alla comunità!</strong> Vendi il tuo abbonamento in sicurezza e trova quello che cerchi.</p>
+        <div class="stats-buttons">
+          <button class="stats-btn-primary" onclick="closeStatsModal(); showSection('booking');">
+            🎯 Vendi Subito
+          </button>
+          <button class="stats-btn-secondary" onclick="closeStatsModal(); showSection('home');">
+            🏠 Sfoglia Annunci
+          </button>
+        </div>
+      </div>
+      
+      <div class="stats-footer">
+        <small>💪 Più siamo, più opportunità abbiamo! Forza Genoa! 🔴🔵</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Dati Vendita -->
+<div class="modal" id="sellModal" style="display:none;justify-content:center;align-items:center;">
+  <div class="modal-content">
+    <span class="close" onclick="toggleSellModal(false)">×</span>
+    <h3>Dati per la vendita</h3>
+    <form id="sellForm">
+      <label>Nome</label><input id="sellNome" required />
+      <label>Cognome</label><input id="sellCognome" required />
+      <label>Data di nascita</label><input id="sellDob" type="date" required />
+      <label>Tessera DNA</label><input id="sellDna" required pattern="^[A-Za-z0-9]{6,}$" />
+      <label>Email</label><input id="sellEmail" type="email" required />
+      <div class="actions">
+        <button type="submit" class="btn">Conferma</button>
+        <button type="button" class="btn secondary" onclick="toggleSellModal(false)">Annulla</button>
+      </div>
+      <small class="hint">I dati restano privati fino alla conferma della vendita.</small>
+    </form>
+  </div>
+</div>
+<!-- Modale Conferma Abbonamento -->
+<div class="modal" id="confirmBookingModal" style="display:none; justify-content:center; align-items:center;">
+  <div class="modal-content confirm-booking-modal">
+    <div class="modal-header">
+      <h2 class="modal-title">🛡️ Conferma Inserimento Abbonamento</h2>
+      <span class="close" onclick="closeConfirmBookingModal()">×</span>
+    </div>
+    <div class="modal-body">
+      <div class="security-section">
+        <div class="security-icon">🔒</div>
+        <h3>Sicurezza e Protezione</h3>
+        <p>Per garantire la sicurezza di tutti i tifosi, verifichiamo alcuni dati importanti:</p>
+      </div>
+      
+      <div class="contact-verification">
+        <div class="contact-note">
+          <span class="note-icon">📞</span>
+          <strong>Contatto Obbligatorio:</strong> Inserisci almeno un metodo di contatto (email o telefono)
+        </div>
+        
+        <div class="phone-verification">
+          <label for="confirmPhone">
+            <span class="label-icon">📱</span>
+            Numero di cellulare (opzionale)
+          </label>
+          <input id="confirmPhone" type="tel" placeholder="+39 123 456 7890" />
+          <small class="help-text">Per contatti diretti tra tifosi</small>
+        </div>
+        
+        <div class="email-verification">
+          <label for="confirmEmail">
+            <span class="label-icon">📧</span>
+            Indirizzo email (opzionale)
+          </label>
+          <input id="confirmEmail" type="email" placeholder="tuo@email.com" />
+          <small class="help-text">Per comunicazioni via email</small>
+        </div>
+      </div>
+      
+      <div class="rules-section">
+        <h4>📋 Regolamento Ti Presto</h4>
+        <div class="rules-content">
+          <div class="rule-item">
+            <span class="rule-icon">✅</span>
+            <p>Utilizzo riservato ai possessori di abbonamento del Genoa CFC</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">✅</span>
+            <p>Rispetto reciproco tra tutti i membri della comunità rossoblù</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">✅</span>
+            <p>Prezzi equi e trasparenti, senza speculazioni</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">✅</span>
+            <p>Comunicazione esclusivamente tramite la piattaforma</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">✅</span>
+            <p>Responsabilità personale per l'uso dell'abbonamento</p>
+          </div>
+        </div>
+        
+        <div class="agreement-checkbox">
+          <label class="checkbox-container">
+            <input type="checkbox" id="acceptRules" required />
+            <span class="checkmark"></span>
+            <span class="checkbox-text">
+              Accetto il regolamento e dichiaro di essere il legittimo possessore dell'abbonamento
+            </span>
+          </label>
+        </div>
+        
+        <div class="privacy-checkbox">
+          <label class="checkbox-container">
+            <input type="checkbox" id="acceptPrivacy" required />
+            <span class="checkmark"></span>
+            <span class="checkbox-text">
+              Accetto l'<a href="#" onclick="showPrivacyInfo()">informativa sulla privacy</a> e autorizzo il trattamento dei miei dati personali per le finalità di contatto tramite la piattaforma Ti Presto
+            </span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="data-info">
+        <div class="info-icon">ℹ️</div>
+        <p><strong>Privacy:</strong> I tuoi dati di contatto verranno condivisi solo con i tifosi interessati al tuo abbonamento, previa tua autorizzazione diretta. Non utilizziamo i tuoi dati per altri scopi.</p>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" onclick="closeConfirmBookingModal()" class="btn-secondary">
+        <span>❌</span>
+        Annulla
+      </button>
+      <button type="button" onclick="confirmBookingSubmission()" class="btn-primary" id="confirmBookingBtn" disabled>
+        <span>🎫</span>
+        Conferma e Pubblica
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Autenticazione -->
+<div class="modal" id="authModal" style="display:none; justify-content:center; align-items:center;">
+  <div class="modal-content">
+    <span class="close" onclick="toggleModal(false)">×</span>
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="login(event)" enctype="application/x-www-form-urlencoded">
+      <label for="loginUsername">Username</label>
+      <input id="loginUsername" placeholder="Username" required="" type="text"/>
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" placeholder="Password" required="" type="password"/>
+      <button type="submit">Accedi</button>
+    </form>
+    <hr/>
+    <h2>Registrazione</h2>
+    <form id="registerForm" onsubmit="register(event)" enctype="application/x-www-form-urlencoded">
+      <label for="registerUsername">Username</label>
+      <input id="registerUsername" required="" type="text"/>
+      <label for="registerPassword">Password</label>
+      <input id="registerPassword" placeholder="Password" required="" type="password"/>
+      <label for="registerConfirmPassword">Conferma Password</label>
+      <input id="registerConfirmPassword" placeholder="Conferma Password" required="" type="password"/>
+      <label for="registerNome">Nome</label>
+      <input id="registerNome" required="" type="text"/>
+      <label for="registerCognome">Cognome</label>
+      <input id="registerCognome" required="" type="text"/>
+      <label for="registerDataNascita">Data di Nascita</label>
+      <input id="registerDataNascita" required="" type="date"/>
+      <label for="registerEmail">Email</label>
+      <input id="registerEmail" required="" type="email"/>
+      <label for="registerTelefono">Telefono</label>
+      <input id="registerTelefono" required="" type="tel"/>
+      <button type="submit">Registrati</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale Contatta Venditore -->
+<div class="modal" id="contactSellerModal" style="display:none; justify-content:center; align-items:center;">
+  <div class="modal-content contact-seller-modal-redesign">
+    
+    <!-- Header con gradiente e chiusura elegante -->
+    <div class="contact-modal-header">
+      <div class="header-content">
+        <div class="title-section">
+          <div class="contact-icon-main">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <h2 class="contact-modal-title">Contatta Venditore</h2>
+        </div>
+        <button class="contact-close-btn" onclick="closeContactSellerModal()" aria-label="Chiudi">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M14.95 5.05L10 10 5.05 5.05 3.95 6.15 8.9 11.1 3.95 16.05 5.05 17.15 10 12.2 14.95 17.15 16.05 16.05 11.1 11.1 16.05 6.15 14.95 5.05Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="contact-modal-body">
+      
+      <!-- Sezione Venditore con design card moderno -->
+      <div class="seller-card-modern">
+        <div class="seller-avatar">
+          <div class="avatar-circle">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
+              <path d="M16 16c3.3 0 6-2.7 6-6s-2.7-6-6-6-6 2.7-6 6 2.7 6 6 6zm0 4c-4 0-12 2-12 6v2h24v-2c0-4-8-6-12-6z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="seller-info-modern">
+          <h3 id="contactSellerName" class="seller-name-modern">Nome Venditore</h3>
+          <div id="contactSellerRating" class="seller-rating-modern">
+            <!-- Rating stelle popolato dinamicamente -->
+          </div>
+          <div class="match-info-pill">
+            <span id="contactSellerMatch">Partita e dettagli</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Metodi di Contatto con design rinnovato -->
+      <div class="contact-section-modern">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          <h4>Informazioni di Contatto</h4>
+        </div>
+        <div class="contact-options-modern" id="contactOptions">
+          <!-- Popolato dinamicamente con telefono/email del venditore -->
+        </div>
+      </div>
+      
+      <!-- Privacy Notice ridisegnata -->
+      <div class="privacy-modern">
+        <div class="privacy-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.1 7 14 7.9 14 9S13.1 11 12 11 10 10.1 10 9 10.9 7 12 7ZM12 17C10.67 17 9.33 16.5 8.33 15.5L9.33 14.5C10 15.17 11 15.5 12 15.5S14 15.17 14.67 14.5L15.67 15.5C14.67 16.5 13.33 17 12 17Z"/>
+          </svg>
+        </div>
+        <div class="privacy-text">
+          <strong>Privacy protetta:</strong> I dati sono condivisi con consenso per facilitare lo scambio dell'abbonamento
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer con pulsanti moderni -->
+    <div class="contact-modal-footer">
+      <button type="button" onclick="closeContactSellerModal()" class="btn-cancel-modern">
+        <span>Annulla</span>
+      </button>
+      <button type="button" onclick="openChatAlternative()" class="btn-contact-modern">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        <span>Avvia Conversazione</span>
+      </button>
+    </div>
+    
+  </div>
+</div>
+
+<div aria-live="polite" id="toast-container"></div>
+<!-- GDPR & PRIVACY COMPONENTS -->
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner" style="display:none;">
+  <div class="cookie-content">
+    <div class="cookie-text">
+      <h3>🍪 Gestione Cookie e Privacy</h3>
+      <p>Utilizziamo i cookie e localStorage per migliorare la tua esperienza. Questi dati rimangono sul tuo dispositivo e ci aiutano a fornirti le funzionalità del servizio.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="btn-cookie accept" onclick="acceptAllCookies()">
+        <span>✓</span> Accetta Tutti
+      </button>
+      <button class="btn-cookie customize" onclick="showCookieSettings()">
+        ⚙️ Personalizza
+      </button>
+      <button class="btn-cookie reject" onclick="rejectCookies()">
+        ✗ Solo Essenziali
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div class="modal" id="cookieSettingsModal">
+  <div class="modal-content cookie-settings-content">
+    <div class="modal-header">
+      <h2 class="modal-title">🛡️ Impostazioni Privacy e Cookie</h2>
+      <span class="close" onclick="closeCookieSettings()">×</span>
+    </div>
+    <div class="modal-body">
+      <div class="cookie-category">
+        <div class="category-header">
+          <h3>🔧 Cookie Essenziali</h3>
+          <label class="toggle-switch disabled">
+            <input type="checkbox" checked disabled>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <p class="category-description">
+          Questi cookie sono necessari per il funzionamento base del sito (autenticazione, sessioni utente). Non possono essere disabilitati.
+        </p>
+        <div class="cookie-details">
+          <strong>Dati memorizzati:</strong> Username, dati profilo, abbonamenti, messaggi chat, preferenze utente
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <div class="category-header">
+          <h3>📊 Cookie di Funzionalità</h3>
+          <label class="toggle-switch">
+            <input type="checkbox" id="functionalCookies" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <p class="category-description">
+          Migliorano l'esperienza utente memorizzando preferenze e impostazioni personalizzate.
+        </p>
+        <div class="cookie-details">
+          <strong>Dati memorizzati:</strong> Preferenze notifiche, impostazioni UI, messaggi letti
+        </div>
+      </div>
+
+      <div class="privacy-info">
+        <h3>📋 Informazioni sulla Privacy</h3>
+        <ul>
+          <li><strong>Raccolta dati:</strong> Solo dati necessari per il servizio di scambio abbonamenti</li>
+          <li><strong>Condivisione:</strong> I tuoi dati non vengono mai condivisi con terze parti</li>
+          <li><strong>Archiviazione:</strong> Tutti i dati rimangono sul tuo dispositivo (localStorage)</li>
+          <li><strong>Controllo:</strong> Puoi eliminare i tuoi dati in qualsiasi momento dal profilo</li>
+          <li><strong>Diritti GDPR:</strong> Hai diritto di accesso, rettifica e cancellazione dei tuoi dati</li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('cookieSettingsModal')">
+        Annulla
+      </button>
+      <button class="btn-primary" onclick="saveCookiePreferences()">
+        <span>💾</span> Salva Preferenze
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div class="modal" id="privacyPolicyModal">
+  <div class="modal-content privacy-policy-content">
+    <div class="modal-header">
+      <h2 class="modal-title">📄 Informativa sulla Privacy</h2>
+      <span class="close" onclick="closeModal('privacyPolicyModal')">×</span>
+    </div>
+    <div class="modal-body privacy-text">
+      <section>
+        <h3>1. Titolare del Trattamento</h3>
+        <p><strong>Ti Presto - Scambio Abbonamenti Genoa CFC</strong><br>
+        <strong>Proprietario:</strong> Tiprestogenoa1893.it<br>
+        <strong>Email:</strong> <a href="mailto:dnagenoa@outlook.it" style="color: #c8102e; text-decoration: none;">dnagenoa@outlook.it</a><br>
+        <strong>Telefono:</strong> <a href="tel:+393454893705" style="color: #c8102e; text-decoration: none;">+39 345 489 3705</a></p>
+        
+        <p>Questo servizio è gestito per facilitare lo scambio di abbonamenti tra tifosi del Genoa CFC in modo sicuro e trasparente.</p>
+      </section>
+
+      <section>
+        <h3>2. Dati Raccolti</h3>
+        <ul>
+          <li><strong>Dati di registrazione:</strong> Username, nome, cognome, email, telefono, data di nascita</li>
+          <li><strong>Dati di utilizzo:</strong> Abbonamenti inseriti, trattative, messaggi chat</li>
+          <li><strong>Preferenze:</strong> Impostazioni notifiche e personalizzazioni UI</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>3. Finalità del Trattamento</h3>
+        <p>I dati sono trattati esclusivamente per:</p>
+        <ul>
+          <li>Gestione dell'account utente e autenticazione</li>
+          <li>Facilitazione dello scambio abbonamenti tra utenti</li>
+          <li>Comunicazione tra acquirenti e venditori</li>
+          <li>Miglioramento dell'esperienza d'uso del servizio</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>4. Base Giuridica</h3>
+        <p>Il trattamento è basato sul consenso dell'interessato (Art. 6.1.a GDPR) e sull'esecuzione del servizio richiesto (Art. 6.1.b GDPR).</p>
+      </section>
+
+      <section>
+        <h3>5. Archiviazione e Sicurezza</h3>
+        <ul>
+          <li>I dati sono memorizzati localmente sul tuo dispositivo (localStorage del browser)</li>
+          <li>Non vengono trasferiti su server esterni o condivisi con terze parti</li>
+          <li>Puoi eliminare tutti i tuoi dati in qualsiasi momento</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>6. I Tuoi Diritti (GDPR)</h3>
+        <p>Hai diritto a:</p>
+        <ul>
+          <li><strong>Accesso:</strong> Visualizzare tutti i tuoi dati dal profilo utente</li>
+          <li><strong>Rettifica:</strong> Modificare i tuoi dati dal profilo</li>
+          <li><strong>Cancellazione:</strong> Eliminare il tuo account e tutti i dati</li>
+          <li><strong>Portabilità:</strong> Esportare i tuoi dati (funzione disponibile nel profilo)</li>
+          <li><strong>Opposizione:</strong> Revocare il consenso in qualsiasi momento</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>7. Identificazione e Contatti</h3>
+        <p><strong>Titolare del trattamento:</strong><br>
+        Tiprestogenoa1893.it<br>
+        Email: <a href="mailto:dnagenoa@outlook.it" style="color: #c8102e;">dnagenoa@outlook.it</a><br>
+        Telefono: <a href="tel:+393454893705" style="color: #c8102e;">+39 345 489 3705</a></p>
+        
+        <p><strong>Come contattarci:</strong><br>
+        Per esercitare i tuoi diritti sulla privacy, richiedere informazioni sul trattamento dei dati o segnalare problemi, puoi contattarci tramite:</p>
+        <ul>
+          <li>Email: <strong>dnagenoa@outlook.it</strong></li>
+          <li>Telefono: <strong>+39 345 489 3705</strong></li>
+          <li>Controlli disponibili nel tuo profilo utente</li>
+        </ul>
+        
+        <p><em>Ci impegniamo a rispondere alle tue richieste entro 30 giorni come previsto dal GDPR.</em></p>
+      </section>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="closeModal('privacyPolicyModal')">
+        Ho Letto
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PayPal Premium -->
+<div class="modal" id="paypalModal" style="display:none; justify-content:center; align-items:center;">
+  <div class="modal-content paypal-modern">
+    
+    <!-- Header Professional -->
+    <div class="payment-header">
+      <div class="header-left">
+        <h2>💳 Completa il Pagamento</h2>
+        <p>Boost Premium per il tuo abbonamento</p>
+      </div>
+      <button class="close-btn" onclick="closePayPalModal()">✕</button>
+    </div>
+    
+    <!-- Payment Summary Card -->
+    <div class="payment-summary-card">
+      <div class="order-item">
+        <div class="item-icon">🎫</div>
+        <div class="item-details">
+          <h4 id="paymentMatchTitle">Genoa - Atalanta</h4>
+          <p id="paymentSectorInfo">Settore selezionato</p>
+        </div>
+      </div>
+      
+      <div class="pricing-breakdown">
+        <div class="price-line">
+          <span>Inserimento Standard</span>
+          <span>Gratuito</span>
+        </div>
+        <div class="price-line boost-line">
+          <span>⚡ Boost Premium</span>
+          <span>€1,79</span>
+        </div>
+        <div class="price-total">
+          <span>Totale</span>
+          <span>€1,79</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PayPal Button Container -->
+    <div class="paypal-wrapper">
+      <div style="text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;">
+        <form action="https://www.paypal.com/ncp/payment/BPQRYXFPZ84K8" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+          <input style="background-color:#FFD140;border:none;color:#000000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;font-weight:bold;cursor:pointer;padding:0.5rem 2rem;border-radius:0.25rem;" type="submit" value="Acquista Boost Premium €1,79" onclick="handlePayPalSubmit()" />
+          <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" style="height:20px;" />
+          <section style="font-size: 0.75rem;color:#666;"> Con tecnologia <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Security Footer -->
+    <div class="payment-footer">
+      <div class="security-badges">
+        <span class="security-item">🔒 Pagamento Sicuro</span>
+        <span class="security-item">✅ PayPal Verified</span>
+        <span class="security-item">🛡️ Protezione Acquirenti</span>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Modal Boost Info -->
+<div class="modal" id="boostInfoModal" style="display:none; justify-content:center; align-items:center;">
+  <div class="modal-content boost-info-content">
+    <div class="modal-header">
+      <h2>⚡ Boost Premium - Come Funziona</h2>
+      <span class="close" onclick="closeModal('boostInfoModal')">×</span>
+    </div>
+    <div class="modal-body">
+      <div class="boost-benefits">
+        <div class="benefit-item">
+          <div class="benefit-icon">🔥</div>
+          <div class="benefit-content">
+            <h4>Sempre in TOP</h4>
+            <p>Il tuo abbonamento apparirà sempre nelle prime posizioni</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">✅</div>
+          <div class="benefit-content">
+            <h4>Badge Venditore Verificato</h4>
+            <p>Gli acquirenti si fidano di più e comprano prima</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📈</div>
+          <div class="benefit-content">
+            <h4>3x Più Visualizzazioni</h4>
+            <p>Maggiore visibilità = vendita più veloce</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">💰</div>
+          <div class="benefit-content">
+            <h4>Vendita Garantita</h4>
+            <p>I venditori premium vendono mediamente 5 volte più velocemente</p>
+          </div>
+        </div>
+      </div>
+      <div class="boost-price-info">
+        <h3>Solo €1,79 - Meno di un caffè!</h3>
+        <p>Un piccolo investimento per una grande differenza</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('boostInfoModal')">Chiudi</button>
+      <button class="btn-primary" onclick="closeModal('boostInfoModal'); document.getElementById('premiumBoost').checked = true; onBoostCheckboxChange();">Attiva Boost Premium</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer con link privacy -->
+<footer class="privacy-footer">
+  <div class="footer-content">
+    <div class="footer-links">
+      <a href="javascript:void(0)" onclick="showPrivacyPolicy()">📄 Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="showCookieSettings()">🍪 Cookie Settings</a>
+      <a href="javascript:void(0)" onclick="exportUserData()">📤 Esporta Dati</a>
+      <a href="javascript:void(0)" onclick="deleteAccount()">🗑️ Elimina Account</a>
+    </div>
+    <div class="footer-info">
+      <p><strong>© 2025 Ti Presto - Genoa CFC</strong><br>
+      Proprietario: <strong>Tiprestogenoa1893.it</strong> | 
+      Email: <a href="mailto:dnagenoa@outlook.it" style="color: rgba(255,255,255,0.9); text-decoration: none;">dnagenoa@outlook.it</a> | 
+      Tel: <a href="tel:+393454893705" style="color: rgba(255,255,255,0.9); text-decoration: none;">+39 345 489 3705</a></p>
+      <p style="font-size: 0.75rem; margin-top: 8px; opacity: 0.8;">Conforme GDPR. I tuoi dati rimangono sul tuo dispositivo.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- 🎫 Modal Biglietto Dati Venditore -->
+<div id="ticketModal" class="modal">
+  <div class="modal-content ticket-modal-content">
+    <span class="close" onclick="closeTicketModal()">&times;</span>
+    <div class="ticket-header">
+      <h2>🎫 I Tuoi Biglietti</h2>
+      <p>Dati di contatto dei venditori per i tuoi acquisti</p>
+    </div>
+    <div id="ticketList" class="ticket-list">
+      <!-- Contenuto dinamico generato da JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Script locali -->
+<script src="christmas.js"></script>
+<script src="toast.js"></script>
+<script src="pw-simple.js"></script>
+
+<!-- Firebase SDK per sincronizzazione lotteria -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
