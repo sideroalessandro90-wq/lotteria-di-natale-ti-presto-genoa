@@ -202,12 +202,13 @@
         /* Griglia Numeri */
         .numbers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+            gap: 15px;
             margin: 30px 0;
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 20px;
         }
         
         .number-box {
@@ -500,8 +501,9 @@
             }
             
             .numbers-grid {
-                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-                gap: 8px;
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+                gap: 12px;
+                padding: 0 15px;
             }
             
             .number-box {
@@ -560,15 +562,37 @@
                 padding: 20px 15px;
             }
             
+            .info-panel h2 {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+            
             .numbers-grid {
-                grid-template-columns: repeat(8, 1fr);
-                gap: 6px;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 10px;
+                padding: 0 10px;
+                margin: 20px 0;
             }
             
             .number-box {
+                font-size: 1.1rem;
+                min-height: 45px;
+                border-radius: 12px;
+                border-width: 2px;
+                font-weight: 600;
+            }
+            
+            /* Miglioramenti specifici per numeri venduti su mobile */
+            .number-box.sold {
                 font-size: 1rem;
-                padding: 8px 4px;
-                min-height: 40px;
+                opacity: 0.7;
+            }
+            
+            /* Numeri selezionati più visibili su mobile */
+            .number-box.selected {
+                transform: scale(0.95);
+                font-size: 1rem;
+                font-weight: 700;
             }
             
             .selection-panel {
@@ -1175,7 +1199,10 @@
                 { numbers: [46] },
                 { numbers: [5,25,36] },
                 { numbers: [24,43,50] },
-                { numbers: [15,77] }
+                { numbers: [15,77] },
+                { numbers: [17,19] },
+                { numbers: [23] },
+                { numbers: [42,61] }
             ];
             
             let soldNumbers = [];
@@ -1380,19 +1407,23 @@
                 { numbers: [46], buyerName: "Alby Katia", method: "Contanti", total: 5, timestamp: Date.now() - 60000 },
                 { numbers: [5,25,36], buyerName: "Carlo Carletti", method: "PayPal", total: 15, timestamp: Date.now() - 30000 },
                 { numbers: [24,43,50], buyerName: "Ilaria Biancalana", method: "PayPal", total: 15, timestamp: Date.now() - 15000 },
-                { numbers: [15,77], buyerName: "Daniela Carla Mattia", method: "PayPal", total: 10, timestamp: Date.now() - 5000 }
+                { numbers: [15,77], buyerName: "Daniela Carla Mattia", method: "PayPal", total: 10, timestamp: Date.now() - 5000 },
+                { numbers: [17,19], buyerName: "Eliana Pesce", method: "PayPal", total: 10, timestamp: Date.now() - 2000 },
+                { numbers: [23], buyerName: "Sidero Alessandro", method: "PayPal", total: 5, timestamp: Date.now() - 1500 },
+                { numbers: [42,61], buyerName: "Emilia Opisso", method: "PayPal", total: 10, timestamp: Date.now() - 1000 }
             ];
             
             // Combina prevendite con acquisti online (se esistenti)
             let allPurchases = [...prevendite];
             
-            if (window.lotteryState && window.lotteryState.purchasedNumbers) {
-                // Aggiungi nuovi acquisti online
-                const onlinePurchases = window.lotteryState.purchasedNumbers.filter(purchase => 
-                    purchase.method === 'PayPal'
-                );
-                allPurchases = [...allPurchases, ...onlinePurchases];
-            }
+            // ⚠️ DISABILITATO - Utilizziamo solo la lista hardcoded per evitare duplicati
+            // if (window.lotteryState && window.lotteryState.purchasedNumbers) {
+            //     // Aggiungi nuovi acquisti online
+            //     const onlinePurchases = window.lotteryState.purchasedNumbers.filter(purchase => 
+            //         purchase.method === 'PayPal'
+            //     );
+            //     allPurchases = [...allPurchases, ...onlinePurchases];
+            // }
             
             // Ordina per timestamp (più recenti prima)
             allPurchases.sort((a, b) => b.timestamp - a.timestamp);
