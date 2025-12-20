@@ -408,22 +408,89 @@
         
         /* Lista Acquisti */
         .purchases-section {
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 25px;
+            background: linear-gradient(135deg, 
+                rgba(0,33,71,0.4) 0%,
+                rgba(0,33,71,0.2) 50%,
+                rgba(0,33,71,0.4) 100%);
+            border-radius: 25px;
+            padding: 30px;
             margin: 30px 0;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(200,16,46,0.2);
+            box-shadow: 
+                0 15px 40px rgba(0,33,71,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        .purchases-section h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .purchases-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #c8102e, #ffd700, #c8102e);
+            border-radius: 2px;
         }
         
         .purchase-item {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, 
+                rgba(0,33,71,0.9) 0%,
+                rgba(0,33,71,0.7) 50%,
+                rgba(0,33,71,0.9) 100%);
+            border: 2px solid rgba(200,16,46,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 
+                0 8px 25px rgba(0,33,71,0.3),
+                0 0 20px rgba(200,16,46,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .purchase-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(200,16,46,0.1) 50%, 
+                transparent 100%);
+            animation: shimmer 3s infinite;
+        }
+        
+        .purchase-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(200,16,46,0.6);
+            box-shadow: 
+                0 12px 35px rgba(0,33,71,0.4),
+                0 0 30px rgba(200,16,46,0.2);
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         
         /* Responsive */
@@ -449,6 +516,78 @@
             .btn-premium {
                 width: 100%;
                 max-width: 300px;
+            }
+            
+            /* Lista Acquisti Mobile */
+            .purchases-section {
+                padding: 20px 15px;
+                margin: 20px 10px;
+                border-radius: 20px;
+            }
+            
+            .purchases-section h2 {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            
+            .purchase-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+                margin-bottom: 12px;
+                border-radius: 12px;
+            }
+            
+            .purchase-item > div:first-child {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .purchase-item > div:last-child {
+                width: 100%;
+                text-align: right;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .lottery-title {
+                font-size: 1.6rem;
+                padding: 0 10px;
+            }
+            
+            .info-panel {
+                margin: 15px 10px;
+                padding: 20px 15px;
+            }
+            
+            .numbers-grid {
+                grid-template-columns: repeat(8, 1fr);
+                gap: 6px;
+            }
+            
+            .number-box {
+                font-size: 1rem;
+                padding: 8px 4px;
+                min-height: 40px;
+            }
+            
+            .selection-panel {
+                margin: 15px 10px;
+                padding: 15px;
+            }
+            
+            .purchases-section {
+                padding: 15px 10px;
+                margin: 15px 5px;
+            }
+            
+            .purchases-section h2 {
+                font-size: 1.2rem;
+            }
+            
+            .purchase-item {
+                padding: 12px;
+                font-size: 0.9rem;
             }
         }
         
