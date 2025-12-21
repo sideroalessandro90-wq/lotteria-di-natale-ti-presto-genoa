@@ -1013,6 +1013,171 @@
             border-left: 4px solid #2196f3;
         }
         
+        /* === GRIGLIA PREMI ORIZZONTALE === */
+        .prize-horizontal, .prize-card {
+            display: flex;
+            margin-bottom: 25px;
+        }
+        
+        .prize-image-section {
+            flex: 0 0 320px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+        
+        .prize-content-section {
+            flex: 1;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Animazioni moderne */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+            50% { box-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 60px rgba(255,215,0,0.4); }
+        }
+
+        .prize-gold:hover { animation: glow 2s ease-in-out infinite; }
+        
+        @media (max-width: 768px) {
+            .prize-horizontal, .prize-card {
+                flex-direction: column !important;
+                margin-bottom: 30px !important;
+                min-height: auto !important;
+                border-radius: 20px !important;
+            }
+            
+            .prize-image-section {
+                flex: none !important;
+                width: 100% !important;
+                text-align: center !important;
+                padding: 25px 20px !important;
+                min-height: 220px !important;
+                border-radius: 20px 20px 0 0 !important;
+            }
+            
+            .prize-content-section {
+                padding: 30px 25px !important;
+            }
+            
+            .prize-horizontal img, .prize-card img {
+                max-width: 220px !important;
+                max-height: 170px !important;
+            }
+
+            /* Mobile-specific adjustments */
+            .prizes-section {
+                margin: 50px auto !important;
+                padding: 0 20px !important;
+            }
+
+            .section-header h2 {
+                font-size: 2.3rem !important;
+                letter-spacing: 2px !important;
+            }
+
+            .section-header p {
+                font-size: 1.15rem !important;
+                margin: 20px 0 !important;
+            }
+
+            .prize-content-section div:nth-child(5) {
+                font-size: 1.9rem !important;
+                padding: 14px 20px !important;
+                text-align: center !important;
+                margin: 0 auto !important;
+            }
+
+            /* Badge positioning for mobile */
+            .prize-card > div:nth-child(3) {
+                top: 10px !important;
+                left: 10px !important;
+                font-size: 0.85rem !important;
+                padding: 10px 16px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .prize-image-section {
+                padding: 20px 15px !important;
+                min-height: 180px !important;
+            }
+            
+            .prize-content-section {
+                padding: 25px 20px !important;
+            }
+            
+            .prize-horizontal img, .prize-card img {
+                max-width: 180px !important;
+                max-height: 140px !important;
+            }
+
+            .section-header h2 {
+                font-size: 1.9rem !important;
+                letter-spacing: 1px !important;
+                line-height: 1.2 !important;
+            }
+
+            .section-header p {
+                font-size: 1.05rem !important;
+                padding: 0 10px !important;
+            }
+
+            .prizes-section {
+                margin: 40px auto !important;
+                padding: 0 15px !important;
+            }
+
+            .prizes-container {
+                gap: 25px !important;
+            }
+
+            /* Titoli premi più piccoli su mobile */
+            .prize-content-section > div:first-child {
+                font-size: 1.6rem !important;
+            }
+
+            /* Sottotitoli più leggibili */
+            .prize-content-section > div:nth-child(3) {
+                font-size: 1.1rem !important;
+            }
+
+            /* Descrizioni ottimizzate */
+            .prize-content-section > div:nth-child(4) {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+            }
+
+            /* Prezzi responsive */
+            .prize-content-section div:nth-child(5) {
+                font-size: 1.6rem !important;
+                padding: 12px 16px !important;
+                border-radius: 15px !important;
+            }
+
+            /* Numeri di background più piccoli */
+            .prize-content-section > div:nth-child(2) {
+                font-size: 2.5rem !important;
+                right: 15px !important;
+                top: 15px !important;
+            }
+        }
+        
         /* === CAROSELLO PREMI === */
         .prizes-carousel {
             margin: 40px auto 30px auto;
@@ -1214,73 +1379,143 @@
     <!-- Container Principale -->
     <div class="lottery-container">
         
-        <!-- Carosello Premi Premium -->
-        <div class="prizes-carousel">
-            <h2 class="carousel-title">🏆 PREMI IN PALIO</h2>
-            <p class="carousel-subtitle">Prodotti ufficiali Genoa CFC di altissima qualità!</p>
+        <!-- Griglia Premi Elegante -->
+        <div class="prizes-section" style="margin: 60px auto; max-width: 1200px; padding: 0 20px;">
+            <!-- Header Section -->
+            <div class="section-header" style="text-align: center; margin-bottom: 50px; position: relative;">
+                <div style="display: inline-block; position: relative;">
+                    <h2 style="color: #ffd700; font-size: 3rem; font-weight: 900; margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,0.8); text-transform: uppercase; letter-spacing: 3px; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🏆 PREMI IN PALIO</h2>
+                    <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 120px; height: 4px; background: linear-gradient(90deg, transparent, #ffd700, #ffed4e, #ffd700, transparent); border-radius: 2px;"></div>
+                </div>
+                <p style="color: #e2e8f0; font-size: 1.3rem; margin: 25px 0 0 0; font-weight: 300; opacity: 0.9;">Prodotti ufficiali Genoa CFC di <span style="color: #c8102e; font-weight: 600;">altissima qualità</span>!</p>
+                <!-- Decorative elements -->
+                <div style="position: absolute; top: -10px; left: 20%; width: 40px; height: 40px; background: radial-gradient(circle, rgba(255,215,0,0.3), transparent); border-radius: 50%; animation: pulse 2s infinite;"></div>
+                <div style="position: absolute; bottom: 10px; right: 15%; width: 25px; height: 25px; background: radial-gradient(circle, rgba(200,16,46,0.4), transparent); border-radius: 50%; animation: pulse 3s infinite reverse;"></div>
+            </div>
             
-            <div class="carousel-container">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Slide 1: Primo Premio -->
-                    <div class="carousel-slide active">
-                        <div class="prize-image-carousel">
-                            <img src="img/1premio1.svg" alt="MIKELI GENOA - Giacca imbottita" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥇 PRIMO PREMIO</div>
-                            <div class="prize-name-carousel">MIKELI GENOA</div>
-                            <div class="prize-model-carousel">Giacca imbottita da uomo - Blue dk-red blaze</div>
-                            <div class="prize-description-carousel">Giacca imbottita da uomo blu scuro con logo della squadra. Perfetta per le giornate più fredde allo stadio!</div>
-                            <div class="prize-price-carousel">€149,00</div>
-                        </div>
+            <!-- Prizes Container -->
+            <div class="prizes-container" style="display: flex; flex-direction: column; gap: 35px;">
+                
+                <!-- Primo Premio -->
+                <div class="prize-card prize-gold" style="display: flex; background: linear-gradient(135deg, #1a1a2e 0%, #2d3748 50%, #1a202c 100%); border: 3px solid #ffd700; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; min-height: 220px;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 35px 70px rgba(255,215,0,0.4), 0 0 40px rgba(255,215,0,0.2)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)';">
+                    <!-- Glow effect -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255,215,0,0.1), transparent 50%); pointer-events: none;"></div>
+                    
+                    <!-- Prize Rank Badge -->
+                    <div style="position: absolute; top: -5px; left: -5px; z-index: 3; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #1a1a2e; padding: 12px 20px; border-radius: 0 0 20px 0; font-weight: 900; font-size: 1rem; text-transform: uppercase; box-shadow: 0 8px 16px rgba(255,215,0,0.3); border: 2px solid #fff;">🥇 1° PREMIO</div>
+                    
+                    <!-- Image Section -->
+                    <div class="prize-image-section" style="flex: 0 0 320px; position: relative; background: linear-gradient(135deg, rgba(255,215,0,0.15) 0%, rgba(200,16,46,0.08) 100%); display: flex; align-items: center; justify-content: center; padding: 25px; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                        <img src="img/1premio1.png" alt="MIKELI GENOA - Giacca imbottita" style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); transition: transform 0.3s ease; position: relative; z-index: 2;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
                     </div>
                     
-                    <!-- Slide 2: Secondo Premio -->
-                    <div class="carousel-slide">
-                        <div class="prize-image-carousel">
-                            <img src="img/2premio1.svg" alt="MEQUO GENOA - Giacca in pile" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥈 SECONDO PREMIO</div>
-                            <div class="prize-name-carousel">MEQUO GENOA</div>
-                            <div class="prize-model-carousel">Giacca in pile da uomo - Blue dk-red blaze</div>
-                            <div class="prize-description-carousel">Giacca in pile blu da uomo con cappuccio e vestibilità slim. Comfort e stile per i veri tifosi!</div>
-                            <div class="prize-price-carousel">€79,00</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Slide 3: Terzo Premio -->
-                    <div class="carousel-slide">
-                        <div class="prize-image-carousel">
-                            <img src="img/3premio1.svg" alt="20.3H GENOA - Pallone da calcio" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥉 TERZO PREMIO</div>
-                            <div class="prize-name-carousel">20.3H GENOA</div>
-                            <div class="prize-model-carousel">Pallone da calcio - White-red-blue dk-yellow</div>
-                            <div class="prize-description-carousel">Pallone da calcio da allenamento unisex grigio a 14 pannelli. Per allenarsi con lo spirito rossoblù!</div>
-                            <div class="prize-price-carousel">€30,00</div>
+                    <!-- Content Section -->
+                    <div class="prize-content-section" style="flex: 1; padding: 35px; display: flex; flex-direction: column; justify-content: center; position: relative;">
+                        <div style="position: absolute; top: 20px; right: 25px; color: rgba(255,215,0,0.3); font-size: 4rem; font-weight: 900; line-height: 1; pointer-events: none;">01</div>
+                        
+                        <div style="font-size: 2rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">MIKELI GENOA</div>
+                        
+                        <div style="color: #c8102e; font-weight: 700; margin-bottom: 15px; font-size: 1.3rem; text-transform: capitalize;">Giacca imbottita da uomo - Blue dk-red blaze</div>
+                        
+                        <div style="color: #cbd5e0; line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; font-weight: 400;">Giacca imbottita da uomo blu scuro con logo della squadra. <span style="color: #ffd700; font-weight: 600;">Perfetta per le giornate più fredde allo stadio!</span></div>
+                        
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: #ffd700; border: 3px solid #ffd700; border-radius: 18px; padding: 18px 30px; background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05)); text-shadow: 2px 2px 6px rgba(0,0,0,0.8); box-shadow: 0 8px 20px rgba(255,215,0,0.2); position: relative; overflow: hidden;">€149,00
+                                <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shimmer 3s infinite;"></div>
+                            </div>
+                            <div style="color: #68d391; font-size: 0.9rem; font-weight: 600; opacity: 0.8;">💎 Premio Premium</div>
                         </div>
                     </div>
                 </div>
                 
-                <button class="carousel-controls carousel-prev" onclick="prevSlide()">❮</button>
-                <button class="carousel-controls carousel-next" onclick="nextSlide()">❯</button>
+                <!-- Secondo Premio -->
+                <div class="prize-card prize-silver" style="display: flex; background: linear-gradient(135deg, #1a1a2e 0%, #2d3748 50%, #1a202c 100%); border: 3px solid #c0c0c0; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; min-height: 220px;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 35px 70px rgba(192,192,192,0.4), 0 0 40px rgba(192,192,192,0.2)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)';">
+                    <!-- Glow effect -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(192,192,192,0.1), transparent 50%); pointer-events: none;"></div>
+                    
+                    <!-- Prize Rank Badge -->
+                    <div style="position: absolute; top: -5px; left: -5px; z-index: 3; background: linear-gradient(135deg, #c0c0c0, #e5e5e5); color: #1a1a2e; padding: 12px 20px; border-radius: 0 0 20px 0; font-weight: 900; font-size: 1rem; text-transform: uppercase; box-shadow: 0 8px 16px rgba(192,192,192,0.3); border: 2px solid #fff;">🥈 2° PREMIO</div>
+                    
+                    <!-- Image Section -->
+                    <div class="prize-image-section" style="flex: 0 0 320px; position: relative; background: linear-gradient(135deg, rgba(192,192,192,0.15) 0%, rgba(200,16,46,0.08) 100%); display: flex; align-items: center; justify-content: center; padding: 25px; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at center, rgba(192,192,192,0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                        <img src="img/2premio1.png" alt="MEQUO GENOA - Giacca in pile" style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); transition: transform 0.3s ease; position: relative; z-index: 2;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+                    </div>
+                    
+                    <!-- Content Section -->
+                    <div class="prize-content-section" style="flex: 1; padding: 35px; display: flex; flex-direction: column; justify-content: center; position: relative;">
+                        <div style="position: absolute; top: 20px; right: 25px; color: rgba(192,192,192,0.3); font-size: 4rem; font-weight: 900; line-height: 1; pointer-events: none;">02</div>
+                        
+                        <div style="font-size: 2rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">MEQUO GENOA</div>
+                        
+                        <div style="color: #c8102e; font-weight: 700; margin-bottom: 15px; font-size: 1.3rem; text-transform: capitalize;">Giacca in pile da uomo - Blue dk-red blaze</div>
+                        
+                        <div style="color: #cbd5e0; line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; font-weight: 400;">Giacca in pile blu da uomo con cappuccio e vestibilità slim. <span style="color: #c0c0c0; font-weight: 600;">Comfort e stile per i veri tifosi!</span></div>
+                        
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: #c0c0c0; border: 3px solid #c0c0c0; border-radius: 18px; padding: 18px 30px; background: linear-gradient(135deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05)); text-shadow: 2px 2px 6px rgba(0,0,0,0.8); box-shadow: 0 8px 20px rgba(192,192,192,0.2); position: relative; overflow: hidden;">€79,00
+                                <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shimmer 3s infinite;"></div>
+                            </div>
+                            <div style="color: #68d391; font-size: 0.9rem; font-weight: 600; opacity: 0.8;">⭐ Qualità Top</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Terzo Premio -->
+                <div class="prize-card prize-bronze" style="display: flex; background: linear-gradient(135deg, #1a1a2e 0%, #2d3748 50%, #1a202c 100%); border: 3px solid #cd7f32; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; min-height: 220px;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 35px 70px rgba(205,127,50,0.4), 0 0 40px rgba(205,127,50,0.2)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)';">
+                    <!-- Glow effect -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(205,127,50,0.1), transparent 50%); pointer-events: none;"></div>
+                    
+                    <!-- Prize Rank Badge -->
+                    <div style="position: absolute; top: -5px; left: -5px; z-index: 3; background: linear-gradient(135deg, #cd7f32, #daa520); color: #ffffff; padding: 12px 20px; border-radius: 0 0 20px 0; font-weight: 900; font-size: 1rem; text-transform: uppercase; box-shadow: 0 8px 16px rgba(205,127,50,0.3); border: 2px solid #fff;">🥉 3° PREMIO</div>
+                    
+                    <!-- Image Section -->
+                    <div class="prize-image-section" style="flex: 0 0 320px; position: relative; background: linear-gradient(135deg, rgba(205,127,50,0.15) 0%, rgba(200,16,46,0.08) 100%); display: flex; align-items: center; justify-content: center; padding: 25px; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at center, rgba(205,127,50,0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                        <img src="img/3premio1.png" alt="20.3H GENOA - Pallone da calcio" style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); transition: transform 0.3s ease; position: relative; z-index: 2;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+                    </div>
+                    
+                    <!-- Content Section -->
+                    <div class="prize-content-section" style="flex: 1; padding: 35px; display: flex; flex-direction: column; justify-content: center; position: relative;">
+                        <div style="position: absolute; top: 20px; right: 25px; color: rgba(205,127,50,0.3); font-size: 4rem; font-weight: 900; line-height: 1; pointer-events: none;">03</div>
+                        
+                        <div style="font-size: 2rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">20.3H GENOA</div>
+                        
+                        <div style="color: #c8102e; font-weight: 700; margin-bottom: 15px; font-size: 1.3rem; text-transform: capitalize;">Pallone da calcio - White-red-blue dk-yellow</div>
+                        
+                        <div style="color: #cbd5e0; line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; font-weight: 400;">Pallone da calcio da allenamento unisex grigio a 14 pannelli. <span style="color: #cd7f32; font-weight: 600;">Per allenarsi con lo spirito rossoblù!</span></div>
+                        
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: #cd7f32; border: 3px solid #cd7f32; border-radius: 18px; padding: 18px 30px; background: linear-gradient(135deg, rgba(205,127,50,0.15), rgba(205,127,50,0.05)); text-shadow: 2px 2px 6px rgba(0,0,0,0.8); box-shadow: 0 8px 20px rgba(205,127,50,0.2); position: relative; overflow: hidden;">€30,00
+                                <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shimmer 3s infinite;"></div>
+                            </div>
+                            <div style="color: #68d391; font-size: 0.9rem; font-weight: 600; opacity: 0.8;">⚽ Ufficiale</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="carousel-indicators">
-                <div class="carousel-dot active" onclick="goToSlide(0)"></div>
-                <div class="carousel-dot" onclick="goToSlide(1)"></div>
-                <div class="carousel-dot" onclick="goToSlide(2)"></div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
-                <p style="color: #ffd700; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;">📋 REGOLAMENTO LOTTERIA</p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; color: #e2e8f0;">
-                    <p><strong>💰 Prezzo numero:</strong> €5,00</p>
-                    <p><strong>🎯 Massimo per persona:</strong> 10 numeri</p>
-                    <p><strong>🎄 Estrazione:</strong> 24 Dicembre 2025</p>
-                    <p><strong>🏆 Totale premi:</strong> €258,00</p>
+            <!-- Regolamento -->
+            <div style="text-align: center; margin-top: 45px; padding: 30px 25px; background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(200,16,46,0.1)); border-radius: 20px; border: 2px solid rgba(255,215,0,0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <p style="color: #ffd700; font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">📋 REGOLAMENTO LOTTERIA</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; color: #e2e8f0;">
+                    <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">💰</div>
+                        <strong>Prezzo numero:</strong><br>€5,00
+                    </div>
+                    <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">🎯</div>
+                        <strong>Max per persona:</strong><br>10 numeri
+                    </div>
+                    <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">🎄</div>
+                        <strong>Estrazione:</strong><br>24 Dicembre 2025
+                    </div>
+                    <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">🏆</div>
+                        <strong>Totale premi:</strong><br>€258,00
+                    </div>
                 </div>
             </div>
         </div>
@@ -2017,41 +2252,6 @@
         }
         
         console.log('🎄 Lotteria Natale 2025 pronta!');
-        
-        // === JAVASCRIPT CAROSELLO === 
-        let currentSlide = 0;
-        const totalSlides = 3;
-        
-        function updateCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const dots = document.querySelectorAll('.carousel-dot');
-            
-            if (track) {
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-        
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-        
-        // Auto-slide ogni 8 secondi
-        setInterval(nextSlide, 8000);
         
         // Debug: Verifica funzioni critiche
         window.addEventListener('load', () => {
