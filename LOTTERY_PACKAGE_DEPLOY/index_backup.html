@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -49,6 +49,12 @@
             z-index: 1;
         }
         
+        @keyframes headerShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+        
         @keyframes snowfall {
             0% { transform: translateY(-100vh); }
             100% { transform: translateY(100vh); }
@@ -57,27 +63,56 @@
         /* Header Premium */
         .lottery-header {
             text-align: center;
-            padding: 40px 20px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
+            padding: 50px 20px 40px;
+            background: linear-gradient(135deg, 
+                rgba(0,33,71,0.3) 0%, 
+                rgba(26,77,114,0.2) 50%, 
+                rgba(0,33,71,0.3) 100%);
+            backdrop-filter: blur(20px);
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 8px 32px rgba(0,33,71,0.4),
+                0 0 60px rgba(200,16,46,0.1);
+            border-bottom: 1px solid rgba(200,16,46,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lottery-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(200,16,46,0.1) 50%, 
+                transparent 100%);
+            animation: headerShine 4s infinite;
         }
         
         .lottery-title {
-            font-family: 'Mountains of Christmas', 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #c8102e, #ff6b6b, #ffd700, #c8102e);
-            background-size: 300% 300%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, 
+                #002147 0%, 
+                #1a4d72 25%, 
+                #c8102e 50%, 
+                #1a4d72 75%, 
+                #002147 100%);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: christmasGlow 4s ease-in-out infinite;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: genoaGlow 6s ease-in-out infinite;
+            text-shadow: 0 4px 8px rgba(0,33,71,0.3);
             position: relative;
             z-index: 2;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
         
         .lottery-title::before {
@@ -87,159 +122,168 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 2.5rem;
+            color: #c8102e;
             animation: bounce 2s infinite;
+            opacity: 0.8;
         }
         
         .lottery-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             width: 200px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #ffd700, #c8102e, #ffd700, transparent);
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #c8102e 20%, 
+                #002147 50%, 
+                #c8102e 80%, 
+                transparent 100%);
             border-radius: 2px;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: lineGlow 3s ease-in-out infinite;
         }
         
-        @keyframes christmasGlow {
-            0%, 100% { background-position: 0% 50%; filter: drop-shadow(0 0 20px #c8102e); }
-            25% { background-position: 50% 0%; filter: drop-shadow(0 0 25px #ffd700); }
-            50% { background-position: 100% 50%; filter: drop-shadow(0 0 20px #ff6b6b); }
-            75% { background-position: 50% 100%; filter: drop-shadow(0 0 25px #c8102e); }
+        @keyframes genoaGlow {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 0 15px rgba(200,16,46,0.6));
+            }
+            50% { 
+                background-position: 100% 50%; 
+                filter: drop-shadow(0 0 20px rgba(0,33,71,0.8));
+            }
         }
         
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(-50%); }
-            40% { transform: translateY(-70%); }
-            60% { transform: translateY(-60%); }
+            40% { transform: translateY(-60%); }
+            60% { transform: translateY(-55%); }
         }
         
-        @keyframes shimmer {
-            0% { opacity: 0.5; transform: translateX(-50%) scaleX(0.8); }
-            50% { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
-            100% { opacity: 0.5; transform: translateX(-50%) scaleX(0.8); }
+        @keyframes lineGlow {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
         }
         
         .lottery-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             opacity: 0.9;
-            margin-bottom: 30px;
-            position: relative;
-            letter-spacing: 2px;
+            margin-bottom: 35px;
+            color: #ffd700;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
         }
         
         .lottery-subtitle::before {
-            content: '🎄';
+            content: '🏆';
             margin-right: 10px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            animation: trophy 3s ease-in-out infinite;
         }
         
         .lottery-subtitle::after {
-            content: '🎄';
+            content: '🏆';
             margin-left: 10px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            animation: trophy 3s ease-in-out infinite reverse;
         }
         
-        /* Locandina */
+        @keyframes trophy {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+        
+        /* Locandina Premium con Cornice Dorata */
         .locandina-container {
-            margin: 30px auto;
+            margin: 40px auto;
             max-width: 600px;
             position: relative;
             z-index: 2;
             padding: 20px;
+            background: linear-gradient(45deg, 
+                #ffd700 0%, 
+                #ffed4e 25%, 
+                #ffd700 50%, 
+                #d4af37 75%, 
+                #ffd700 100%);
+            background-size: 200% 200%;
             border-radius: 30px;
-            background: 
-                linear-gradient(145deg, rgba(255,215,0,0.3), rgba(255,215,0,0.1)),
-                linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-            border: 5px solid transparent;
-            background-clip: padding-box;
+            animation: goldFrame 4s ease-in-out infinite;
             box-shadow: 
-                0 30px 60px rgba(0,0,0,0.5),
-                0 0 50px rgba(255,215,0,0.6),
-                inset 0 2px 0 rgba(255,255,255,0.3),
-                inset 0 -2px 0 rgba(0,0,0,0.1);
-            animation: goldGlow 3s ease-in-out infinite;
+                0 20px 60px rgba(212,175,55,0.4),
+                0 0 80px rgba(255,215,0,0.3),
+                inset 0 2px 4px rgba(255,255,255,0.3),
+                inset 0 -2px 4px rgba(0,0,0,0.2);
         }
         
         .locandina-container::before {
             content: '';
             position: absolute;
             inset: 15px;
-            border-radius: 20px;
             background: linear-gradient(135deg, 
-                rgba(255,215,0,0.4) 0%, 
-                rgba(255,215,0,0.1) 25%, 
-                rgba(255,215,0,0.4) 50%, 
-                rgba(255,215,0,0.1) 75%, 
-                rgba(255,215,0,0.4) 100%);
-            z-index: -1;
-            animation: shimmerGold 4s linear infinite;
+                rgba(0,33,71,0.1) 0%, 
+                rgba(200,16,46,0.1) 50%, 
+                rgba(0,33,71,0.1) 100%);
+            border-radius: 20px;
+            z-index: 1;
         }
         
         .locandina-container::after {
-            content: '👑';
+            content: '🏆';
             position: absolute;
-            top: -20px;
-            right: 30px;
-            font-size: 2.5rem;
-            background: radial-gradient(circle, #ffd700, #ffed4e);
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 
-                0 10px 25px rgba(255,215,0,0.6),
-                0 0 30px rgba(255,215,0,0.4);
-            animation: crownFloat 2.5s ease-in-out infinite;
-            border: 3px solid #fff;
+            box-shadow: 0 10px 20px rgba(212,175,55,0.5);
+            animation: trophyFloat 3s ease-in-out infinite;
         }
         
-        @keyframes goldGlow {
+        @keyframes goldFrame {
             0%, 100% { 
-                box-shadow: 
-                    0 30px 60px rgba(0,0,0,0.5),
-                    0 0 50px rgba(255,215,0,0.6),
-                    inset 0 2px 0 rgba(255,255,255,0.3);
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 0 20px rgba(255,215,0,0.6));
             }
             50% { 
-                box-shadow: 
-                    0 35px 70px rgba(0,0,0,0.6),
-                    0 0 70px rgba(255,215,0,0.8),
-                    inset 0 3px 0 rgba(255,255,255,0.4);
+                background-position: 100% 50%; 
+                filter: drop-shadow(0 0 30px rgba(212,175,55,0.8));
             }
         }
         
-        @keyframes shimmerGold {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        
-        @keyframes crownFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-8px) rotate(2deg); }
-            66% { transform: translateY(-4px) rotate(-1deg); }
+        @keyframes trophyFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
         }
         
         .locandina-img {
             width: 100%;
             height: auto;
             border-radius: 15px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 
-                0 20px 40px rgba(0,0,0,0.3),
-                0 0 30px rgba(200,16,46,0.2);
-            transition: transform 0.3s ease;
+                0 15px 35px rgba(0,0,0,0.3),
+                0 5px 15px rgba(0,0,0,0.2);
         }
         
         .locandina-img:hover {
-            transform: scale(1.02);
+            transform: scale(1.02) rotate(0.5deg);
             box-shadow: 
                 0 25px 50px rgba(0,0,0,0.4),
-                0 0 40px rgba(255,215,0,0.3);
+                0 10px 25px rgba(0,0,0,0.3),
+                0 0 30px rgba(255,215,0,0.2);
         }
         
         .countdown-container {
@@ -699,54 +743,234 @@
                 width: 100%;
                 text-align: right;
             }
-            
-            /* Carosello responsive tablet */
-            .carousel-title {
+        }
+        
+        /* CAROSELLO PREMI STYLING */
+        .prizes-carousel {
+            background: linear-gradient(135deg, 
+                rgba(0,33,71,0.9) 0%,
+                rgba(0,33,71,0.7) 50%,
+                rgba(0,33,71,0.9) 100%);
+            border-radius: 25px;
+            padding: 30px 20px;
+            margin: 30px auto;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 35px rgba(0,33,71,0.4),
+                0 0 30px rgba(200,16,46,0.2);
+        }
+        
+        .prizes-carousel::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.1) 0%,
+                rgba(200,16,46,0.1) 50%,
+                rgba(255,215,0,0.1) 100%);
+            border-radius: 23px;
+            z-index: 1;
+        }
+        
+        .prizes-carousel h2 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            z-index: 2;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px;
+        }
+        
+        .prize-card {
+            min-width: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,0.1) 0%,
+                rgba(255,255,255,0.05) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+        
+        .prize-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.1) 0%,
+                rgba(200,16,46,0.1) 50%,
+                rgba(255,215,0,0.1) 100%);
+            z-index: -1;
+        }
+        
+        .prize-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            filter: drop-shadow(0 10px 20px rgba(255,215,0,0.3));
+            transition: transform 0.3s ease;
+        }
+        
+        .prize-card:hover .prize-image {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        .prize-position {
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .prize-price {
+            font-size: 2rem;
+            color: #c8102e;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .prize-description {
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: #ffd700;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+        
+        .carousel-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+        
+        .carousel-arrow {
+            background: rgba(255,215,0,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #002147;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .carousel-arrow:hover {
+            background: #ffd700;
+            transform: scale(1.1);
+        }
+        
+        .carousel-arrow.prev {
+            left: 10px;
+        }
+        
+        .carousel-arrow.next {
+            right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .lottery-title {
                 font-size: 2rem;
-                margin: 20px 0 15px 0;
-                letter-spacing: 1.5px;
+                padding: 0 15px;
             }
             
-            .carousel-subtitle {
-                font-size: 1rem;
-                margin-bottom: 20px;
+            /* Carosello Premi Tablet */
+            .prizes-carousel {
+                margin: 25px 15px;
+                padding: 25px 20px;
+                border-radius: 22px;
             }
             
-            .carousel-container {
-                height: 380px;
+            .prizes-carousel h2 {
+                font-size: 2rem;
+                margin-bottom: 25px;
             }
             
-            .carousel-slide {
-                padding: 25px;
+            .prize-image {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 18px;
             }
             
-            .prize-image-carousel {
-                padding-right: 20px;
-            }
-            
-            .prize-details-carousel {
-                padding-left: 20px;
-            }
-            
-            .prize-rank-carousel {
-                font-size: 1.5rem;
-            }
-            
-            .prize-name-carousel {
+            .prize-position {
                 font-size: 1.3rem;
             }
             
-            .prize-model-carousel {
-                font-size: 1rem;
+            .prize-price {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
             }
             
-            .prize-description-carousel {
-                font-size: 0.95rem;
+            .prize-description {
+                font-size: 1.05rem;
             }
             
-            .prize-price-carousel {
-                font-size: 1.7rem;
-                padding: 8px 16px;
+            .carousel-arrow {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .carousel-arrow.prev {
+                left: 8px;
+            }
+            
+            .carousel-arrow.next {
+                right: 8px;
+            }
+            
+            .locandina-container {
+                margin: 30px 15px;
+                padding: 15px;
+                border-radius: 25px;
             }
         }
         
@@ -808,6 +1032,51 @@
                 margin-bottom: 15px;
             }
             
+            /* Carosello Premi Mobile */
+            .prizes-carousel {
+                margin: 20px 10px;
+                padding: 20px 15px;
+                border-radius: 20px;
+            }
+            
+            .prizes-carousel h2 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .prize-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 15px;
+            }
+            
+            .prize-position {
+                font-size: 1.2rem;
+            }
+            
+            .prize-price {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .prize-description {
+                font-size: 1rem;
+            }
+            
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-arrow.prev {
+                left: 5px;
+            }
+            
+            .carousel-arrow.next {
+                right: 5px;
+            }
+            
             .numbers-grid {
                 grid-template-columns: repeat(7, 1fr);
                 gap: 10px;
@@ -853,104 +1122,6 @@
             .purchase-item {
                 padding: 12px;
                 font-size: 0.9rem;
-            }
-            
-            /* Carosello responsive mobile */
-            .prizes-carousel {
-                margin: 20px 10px;
-                border-radius: 20px;
-                border: 2px solid #ffd700;
-            }
-            
-            .carousel-title {
-                font-size: 1.6rem;
-                margin: 15px 0 10px 0;
-                letter-spacing: 1px;
-                padding: 0 15px;
-            }
-            
-            .carousel-subtitle {
-                font-size: 0.9rem;
-                margin-bottom: 15px;
-                padding: 0 15px;
-            }
-            
-            .carousel-container {
-                height: 500px;
-            }
-            
-            .carousel-slide {
-                flex-direction: column;
-                padding: 20px 15px;
-                text-align: center;
-                justify-content: flex-start;
-            }
-            
-            .prize-image-carousel {
-                max-width: 100%;
-                padding-right: 0;
-                margin-bottom: 20px;
-            }
-            
-            .prize-image-carousel img {
-                max-height: 200px;
-                border-radius: 12px;
-            }
-            
-            .prize-details-carousel {
-                max-width: 100%;
-                padding-left: 0;
-            }
-            
-            .prize-rank-carousel {
-                font-size: 1.4rem;
-                margin-bottom: 10px;
-            }
-            
-            .prize-name-carousel {
-                font-size: 1.2rem;
-                margin-bottom: 8px;
-            }
-            
-            .prize-model-carousel {
-                font-size: 1rem;
-                margin-bottom: 10px;
-            }
-            
-            .prize-description-carousel {
-                font-size: 0.9rem;
-                margin-bottom: 15px;
-                line-height: 1.5;
-            }
-            
-            .prize-price-carousel {
-                font-size: 1.5rem;
-                padding: 8px 15px;
-                border-radius: 12px;
-            }
-            
-            .carousel-controls {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .carousel-prev {
-                left: 15px;
-            }
-            
-            .carousel-next {
-                right: 15px;
-            }
-            
-            .carousel-indicators {
-                padding: 20px 0;
-                gap: 10px;
-            }
-            
-            .carousel-dot {
-                width: 12px;
-                height: 12px;
             }
         }
         
@@ -1013,183 +1184,117 @@
             border-left: 4px solid #2196f3;
         }
         
-        /* === CAROSELLO PREMI === */
-        .prizes-carousel {
-            margin: 40px auto 30px auto;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
+        /* === SEZIONE PREMI === */
+        .prizes-showcase {
+            background: linear-gradient(135deg, rgba(200,16,46,0.1), rgba(0,33,71,0.1));
             border-radius: 25px;
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 3px solid #ffd700;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(255,215,0,0.3);
+            backdrop-filter: blur(15px);
         }
         
-        .carousel-title {
+        .prizes-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .prize-showcase {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
-            color: #ffd700;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 30px 0 20px 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .carousel-subtitle {
-            text-align: center;
-            color: #e2e8f0;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-        
-        .carousel-container {
+            border: 2px solid rgba(255,215,0,0.2);
+            transition: all 0.3s ease;
             position: relative;
-            width: 100%;
-            height: 450px;
             overflow: hidden;
         }
         
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        .prize-showcase:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255,215,0,0.3);
+            border-color: rgba(255,215,0,0.6);
+        }
+        
+        .prize-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: left 0.5s;
         }
         
-        .carousel-slide {
-            flex: 0 0 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(200,16,46,0.05));
+        .prize-showcase:hover::before {
+            left: 100%;
         }
         
-        .prize-image-carousel {
-            flex: 1;
-            max-width: 50%;
-            text-align: center;
-            padding-right: 30px;
-        }
-        
-        .prize-image-carousel img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid #ffd700;
-        }
-        
-        .prize-image-carousel img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
-        }
-        
-        .prize-details-carousel {
-            flex: 1;
-            max-width: 50%;
-            padding-left: 30px;
-            color: white;
-        }
-        
-        .prize-rank-carousel {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd700;
+        .prize-rank {
+            font-size: 2rem;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: 800;
         }
         
-        .prize-name-carousel {
-            font-size: 1.5rem;
+        .prize-image {
+            width: 100%;
+            max-width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 3px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .prize-showcase:hover .prize-image {
+            transform: scale(1.05);
+            border-color: rgba(255,215,0,0.8);
+        }
+        
+        .prize-title {
+            font-size: 1.3rem;
             font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 10px;
+            color: #ffd700;
+            margin: 15px 0 10px 0;
             text-transform: uppercase;
         }
         
-        .prize-model-carousel {
-            font-size: 1.1rem;
-            color: #c8102e;
-            font-weight: 600;
+        .prize-description {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.4;
             margin-bottom: 15px;
-            font-style: italic;
         }
         
-        .prize-description-carousel {
-            font-size: 1rem;
-            color: #a0aec0;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .prize-price-carousel {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            border: 2px solid #ffd700;
-            border-radius: 15px;
-            padding: 10px 20px;
-            display: inline-block;
-            background: linear-gradient(145deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-        }
-        
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,215,0,0.9);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .prize-value {
             font-size: 1.5rem;
-            color: #002147;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-weight: 800;
+            color: #10b981;
+            background: rgba(16,185,129,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
         }
         
-        .carousel-controls:hover {
-            background: #ffd700;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 8px 25px rgba(255,215,0,0.4);
-        }
-        
-        .carousel-prev {
-            left: 20px;
-        }
-        
-        .carousel-next {
-            right: 20px;
-        }
-        
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 30px 0;
-            background: linear-gradient(to bottom, transparent, rgba(0,33,71,0.1));
-        }
-        
-        .carousel-dot {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: rgba(255,215,0,0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #ffd700;
-        }
-        
-        .carousel-dot.active {
-            background: #ffd700;
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(255,215,0,0.6);
+        @media (max-width: 768px) {
+            .prizes-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .prize-showcase {
+                padding: 20px;
+            }
+            
+            .prize-image {
+                max-width: 200px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -1216,64 +1321,62 @@
         
         <!-- Carosello Premi Premium -->
         <div class="prizes-carousel">
-            <h2 class="carousel-title">🏆 PREMI IN PALIO</h2>
-            <p class="carousel-subtitle">Prodotti ufficiali Genoa CFC di altissima qualità!</p>
+            <h2>🏆 PREMI IN PALIO</h2>
             
             <div class="carousel-container">
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Slide 1: Primo Premio -->
-                    <div class="carousel-slide active">
-                        <div class="prize-image-carousel">
-                            <img src="img/1premio1.svg" alt="MIKELI GENOA - Giacca imbottita" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥇 PRIMO PREMIO</div>
-                            <div class="prize-name-carousel">MIKELI GENOA</div>
-                            <div class="prize-model-carousel">Giacca imbottita da uomo - Blue dk-red blaze</div>
-                            <div class="prize-description-carousel">Giacca imbottita da uomo blu scuro con logo della squadra. Perfetta per le giornate più fredde allo stadio!</div>
-                            <div class="prize-price-carousel">€149,00</div>
+                    
+                    <!-- Primo Premio -->
+                    <div class="prize-card">
+                        <img src="img/1premio1.svg" alt="Giacca MIKELI GENOA" class="prize-image" />
+                        <div class="prize-position">🥇 PRIMO PREMIO</div>
+                        <div class="prize-price">€149,00</div>
+                        <div class="prize-description">
+                            <strong>MIKELI GENOA</strong><br>
+                            Giacca imbottita da uomo blu scuro con logo della squadra<br>
+                            <em>Modello: Blue dk-red blaze</em>
                         </div>
                     </div>
                     
-                    <!-- Slide 2: Secondo Premio -->
-                    <div class="carousel-slide">
-                        <div class="prize-image-carousel">
-                            <img src="img/2premio1.svg" alt="MEQUO GENOA - Giacca in pile" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥈 SECONDO PREMIO</div>
-                            <div class="prize-name-carousel">MEQUO GENOA</div>
-                            <div class="prize-model-carousel">Giacca in pile da uomo - Blue dk-red blaze</div>
-                            <div class="prize-description-carousel">Giacca in pile blu da uomo con cappuccio e vestibilità slim. Comfort e stile per i veri tifosi!</div>
-                            <div class="prize-price-carousel">€79,00</div>
+                    <!-- Secondo Premio -->
+                    <div class="prize-card">
+                        <img src="img/2premio1.svg" alt="Giacca MEQUO GENOA" class="prize-image" />
+                        <div class="prize-position">🥈 SECONDO PREMIO</div>
+                        <div class="prize-price">€79,00</div>
+                        <div class="prize-description">
+                            <strong>MEQUO GENOA</strong><br>
+                            Giacca in pile blu da uomo con cappuccio e vestibilità slim<br>
+                            <em>Modello: Blue dk-red blaze</em>
                         </div>
                     </div>
                     
-                    <!-- Slide 3: Terzo Premio -->
-                    <div class="carousel-slide">
-                        <div class="prize-image-carousel">
-                            <img src="img/3premio1.svg" alt="20.3H GENOA - Pallone da calcio" />
-                        </div>
-                        <div class="prize-details-carousel">
-                            <div class="prize-rank-carousel">🥉 TERZO PREMIO</div>
-                            <div class="prize-name-carousel">20.3H GENOA</div>
-                            <div class="prize-model-carousel">Pallone da calcio - White-red-blue dk-yellow</div>
-                            <div class="prize-description-carousel">Pallone da calcio da allenamento unisex grigio a 14 pannelli. Per allenarsi con lo spirito rossoblù!</div>
-                            <div class="prize-price-carousel">€30,00</div>
+                    <!-- Terzo Premio -->
+                    <div class="prize-card">
+                        <img src="img/3premio1.svg" alt="Pallone 20.3H GENOA" class="prize-image" />
+                        <div class="prize-position">🥉 TERZO PREMIO</div>
+                        <div class="prize-price">€30,00</div>
+                        <div class="prize-description">
+                            <strong>20.3H GENOA</strong><br>
+                            Pallone da calcio da allenamento unisex grigio a 14 pannelli<br>
+                            <em>Modello: White-red-blue dk-yellow</em>
                         </div>
                     </div>
+                    
                 </div>
                 
-                <button class="carousel-controls carousel-prev" onclick="prevSlide()">❮</button>
-                <button class="carousel-controls carousel-next" onclick="nextSlide()">❯</button>
+                <!-- Frecce Navigazione -->
+                <button class="carousel-arrow prev" onclick="moveCarousel(-1)">‹</button>
+                <button class="carousel-arrow next" onclick="moveCarousel(1)">›</button>
             </div>
             
-            <div class="carousel-indicators">
-                <div class="carousel-dot active" onclick="goToSlide(0)"></div>
-                <div class="carousel-dot" onclick="goToSlide(1)"></div>
-                <div class="carousel-dot" onclick="goToSlide(2)"></div>
+            <!-- Indicatori Navigazione -->
+            <div class="carousel-nav">
+                <div class="nav-dot active" onclick="goToSlide(0)"></div>
+                <div class="nav-dot" onclick="goToSlide(1)"></div>
+                <div class="nav-dot" onclick="goToSlide(2)"></div>
             </div>
             
+            <!-- Regolamento -->
             <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
                 <p style="color: #ffd700; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;">📋 REGOLAMENTO LOTTERIA</p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; color: #e2e8f0;">
@@ -2018,41 +2121,6 @@
         
         console.log('🎄 Lotteria Natale 2025 pronta!');
         
-        // === JAVASCRIPT CAROSELLO === 
-        let currentSlide = 0;
-        const totalSlides = 3;
-        
-        function updateCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const dots = document.querySelectorAll('.carousel-dot');
-            
-            if (track) {
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-        
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-        
-        // Auto-slide ogni 8 secondi
-        setInterval(nextSlide, 8000);
-        
         // Debug: Verifica funzioni critiche
         window.addEventListener('load', () => {
             console.log('✅ Funzioni caricate:', {
@@ -2078,6 +2146,51 @@
                     updatePurchasesList();
                 }
             }, 2000);
+        });
+        
+        // === CAROSELLO PREMI FUNZIONI ===
+        let currentSlide = 0;
+        const totalSlides = 3;
+        
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            updateCarousel();
+        }
+        
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+        
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.nav-dot');
+            
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            
+            // Aggiorna indicatori
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        // Auto-slide ogni 5 secondi
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+        
+        // Inizializza carosello al caricamento
+        window.addEventListener('load', () => {
+            updateCarousel();
         });
     </script>
 </body>
