@@ -1356,6 +1356,129 @@
             transform: scale(1.3);
             box-shadow: 0 0 15px rgba(255,215,0,0.6);
         }
+
+        /* === SEZIONE ESTRAZIONE CSS === */
+        
+        /* Animazioni countdown */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+            50% { box-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 60px rgba(255,215,0,0.4); }
+        }
+        
+        /* Responsività countdown */
+        @media (max-width: 768px) {
+            .countdown-box {
+                padding: 25px 20px !important;
+                margin: 30px auto 25px auto !important;
+            }
+            
+            .countdown-box h2 {
+                font-size: 2rem !important;
+                margin-bottom: 15px !important;
+            }
+            
+            #countdown-timer, #countdown-timer-estrazione {
+                gap: 15px !important;
+                justify-content: center !important;
+            }
+            
+            .time-unit {
+                padding: 15px 12px !important;
+                min-width: 70px !important;
+            }
+            
+            .time-unit div:first-child {
+                font-size: 2.2rem !important;
+            }
+            
+            .estrazione-live-box {
+                padding: 25px 20px !important;
+            }
+            
+            .estrazione-live-box h2 {
+                font-size: 2.2rem !important;
+            }
+            
+            #input-numeri {
+                padding: 20px 15px !important;
+            }
+            
+            #input-numeri div:nth-child(2) {
+                gap: 10px !important;
+            }
+            
+            #input-numeri input {
+                width: 60px !important;
+                padding: 12px !important;
+                font-size: 1.2rem !important;
+            }
+            
+            #calcola-vincitori {
+                padding: 12px 25px !important;
+                font-size: 1rem !important;
+            }
+            
+            .vincitore-card {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
+            }
+            
+            .vincitore-card > div:first-child {
+                justify-content: center !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .countdown-box {
+                padding: 20px 15px !important;
+            }
+            
+            .countdown-box h2 {
+                font-size: 1.7rem !important;
+            }
+            
+            #countdown-timer, #countdown-timer-estrazione {
+                gap: 10px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .time-unit {
+                padding: 12px 10px !important;
+                min-width: 60px !important;
+            }
+            
+            .time-unit div:first-child {
+                font-size: 1.8rem !important;
+            }
+            
+            .estrazione-live-box h2 {
+                font-size: 1.8rem !important;
+            }
+            
+            #input-numeri input {
+                width: 55px !important;
+                padding: 10px !important;
+                font-size: 1.1rem !important;
+            }
+            
+            .vincitore-card {
+                padding: 20px 15px !important;
+            }
+            
+            .vincitore-card div:first-child div:nth-child(2) div:first-child {
+                font-size: 1.2rem !important;
+            }
+            
+            .vincitore-card div:nth-child(2) div:nth-child(2) {
+                font-size: 1.5rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1515,6 +1638,135 @@
                     <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
                         <div style="font-size: 1.5rem; margin-bottom: 5px;">🏆</div>
                         <strong>Totale premi:</strong><br>€258,00
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- === SEZIONE ESTRAZIONE LIVE === -->
+        <div id="estrazione-section" class="estrazione-container" style="margin: 60px auto; max-width: 1200px; padding: 0 20px;">
+            
+            <!-- Countdown Vendite (fino alle 18:00 del 24/12) -->
+            <div id="countdown-vendite" class="countdown-box" style="text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(200,16,46,0.15)); border: 3px solid rgba(255,215,0,0.4); border-radius: 25px; box-shadow: 0 15px 40px rgba(255,215,0,0.3);">
+                <h2 style="color: #ffd700; font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);">⏰ VENDITE APERTE</h2>
+                <p id="vendite-status" style="color: #e2e8f0; font-size: 1.2rem; margin-bottom: 30px;">Puoi acquistare numeri fino a <strong style="color: #ffd700;">DOMANI ore 18:00</strong></p>
+                
+                <div id="countdown-timer" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <div class="time-unit" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; min-width: 80px;">
+                        <div id="hours" style="font-size: 3rem; font-weight: 900; color: #ffd700;">00</div>
+                        <div style="font-size: 1rem; color: #cbd5e0; text-transform: uppercase;">Ore</div>
+                    </div>
+                    <div class="time-unit" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; min-width: 80px;">
+                        <div id="minutes" style="font-size: 3rem; font-weight: 900; color: #ffd700;">00</div>
+                        <div style="font-size: 1rem; color: #cbd5e0; text-transform: uppercase;">Min</div>
+                    </div>
+                    <div class="time-unit" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; min-width: 80px;">
+                        <div id="seconds" style="font-size: 3rem; font-weight: 900; color: #ffd700;">00</div>
+                        <div style="font-size: 1rem; color: #cbd5e0; text-transform: uppercase;">Sec</div>
+                    </div>
+                </div>
+                
+                <div id="vendite-alert" style="padding: 15px; background: rgba(255,215,0,0.15); border-radius: 12px; border: 2px solid rgba(255,215,0,0.3);">
+                    <span style="color: #ffd700; font-size: 1.1rem; font-weight: 600;">🔥 Affrettati! Solo poche ore rimaste per partecipare!</span>
+                </div>
+            </div>
+
+            <!-- Countdown Estrazione (dalle 18:00 alle 18:30 del 24/12) -->
+            <div id="countdown-estrazione" class="countdown-box" style="display: none; text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, rgba(200,16,46,0.2), rgba(255,215,0,0.15)); border: 3px solid rgba(200,16,46,0.4); border-radius: 25px; box-shadow: 0 15px 40px rgba(200,16,46,0.3);">
+                <h2 style="color: #c8102e; font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);">🔒 VENDITE CHIUSE</h2>
+                <p style="color: #e2e8f0; font-size: 1.2rem; margin-bottom: 30px;">Estrazione tra poco alle <strong style="color: #c8102e;">ore 18:30</strong></p>
+                
+                <div id="countdown-timer-estrazione" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <div class="time-unit" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; min-width: 80px;">
+                        <div id="minutes-est" style="font-size: 3rem; font-weight: 900; color: #c8102e;">00</div>
+                        <div style="font-size: 1rem; color: #cbd5e0; text-transform: uppercase;">Min</div>
+                    </div>
+                    <div class="time-unit" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; min-width: 80px;">
+                        <div id="seconds-est" style="font-size: 3rem; font-weight: 900; color: #c8102e;">00</div>
+                        <div style="font-size: 1rem; color: #cbd5e0; text-transform: uppercase;">Sec</div>
+                    </div>
+                </div>
+                
+                <div style="padding: 15px; background: rgba(200,16,46,0.15); border-radius: 12px; border: 2px solid rgba(200,16,46,0.3);">
+                    <span style="color: #c8102e; font-size: 1.1rem; font-weight: 600;">⏳ Preparazione estrazione in corso...</span>
+                </div>
+            </div>
+
+            <!-- Estrazione Live (dalle 18:30 in poi) -->
+            <div id="estrazione-live" class="estrazione-live-box" style="display: none; text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, #1a1a2e, #2d3748, #1a202c); border: 3px solid #ffd700; border-radius: 25px; box-shadow: 0 20px 50px rgba(255,215,0,0.4), 0 0 40px rgba(255,215,0,0.2);">
+                <h2 style="color: #ffd700; font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);">🎲 ESTRAZIONE LIVE</h2>
+                <p style="color: #e2e8f0; font-size: 1.3rem; margin-bottom: 30px;">Ruota di <strong style="color: #c8102e;">GENOVA</strong> - Mercoledì 24 Dicembre 2025</p>
+                
+                <!-- Inserimento Numeri Lotto -->
+                <div id="input-numeri" style="margin-bottom: 40px; padding: 30px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
+                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 1.5rem;">📝 Inserisci i numeri estratti del Lotto:</h3>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <input type="number" id="numero1" min="1" max="90" placeholder="1°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #ffd700; border-radius: 10px; background: #1a1a2e; color: #ffd700; font-weight: 900;">
+                        <input type="number" id="numero2" min="1" max="90" placeholder="2°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #c0c0c0; border-radius: 10px; background: #1a1a2e; color: #c0c0c0; font-weight: 900;">
+                        <input type="number" id="numero3" min="1" max="90" placeholder="3°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #cd7f32; border-radius: 10px; background: #1a1a2e; color: #cd7f32; font-weight: 900;">
+                        <input type="number" id="numero4" min="1" max="90" placeholder="4°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; color: #999; font-weight: 900;">
+                        <input type="number" id="numero5" min="1" max="90" placeholder="5°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; color: #999; font-weight: 900;">
+                    </div>
+                    <button id="calcola-vincitori" onclick="calcolaVincitori()" style="padding: 15px 40px; font-size: 1.2rem; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #1a1a2e; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 8px 20px rgba(255,215,0,0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(255,215,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(255,215,0,0.3)'">🏆 CALCOLA VINCITORI</button>
+                </div>
+
+                <!-- Risultati Estrazione -->
+                <div id="risultati-estrazione" style="display: none;">
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">🏆 VINCITORI UFFICIALI</h3>
+                    
+                    <!-- Vincitori -->
+                    <div style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 40px;">
+                        <!-- 1° Premio -->
+                        <div id="vincitore-1" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1)); border: 3px solid #ffd700; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="font-size: 3rem;">🥇</div>
+                                <div>
+                                    <div style="color: #ffd700; font-size: 1.5rem; font-weight: 900;">1° PREMIO - NUMERO <span id="numero-vincente-1">--</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-1">--</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #ffd700; font-size: 1.3rem; font-weight: 700;">MIKELI GENOA</div>
+                                <div style="color: #e2e8f0; font-size: 1.8rem; font-weight: 900;">€149,00</div>
+                            </div>
+                        </div>
+
+                        <!-- 2° Premio -->
+                        <div id="vincitore-2" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(192,192,192,0.2), rgba(192,192,192,0.1)); border: 3px solid #c0c0c0; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="font-size: 3rem;">🥈</div>
+                                <div>
+                                    <div style="color: #c0c0c0; font-size: 1.5rem; font-weight: 900;">2° PREMIO - NUMERO <span id="numero-vincente-2">--</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-2">--</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #c0c0c0; font-size: 1.3rem; font-weight: 700;">MEQUO GENOA</div>
+                                <div style="color: #e2e8f0; font-size: 1.8rem; font-weight: 900;">€79,00</div>
+                            </div>
+                        </div>
+
+                        <!-- 3° Premio -->
+                        <div id="vincitore-3" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(205,127,50,0.2), rgba(205,127,50,0.1)); border: 3px solid #cd7f32; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="font-size: 3rem;">🥉</div>
+                                <div>
+                                    <div style="color: #cd7f32; font-size: 1.5rem; font-weight: 900;">3° PREMIO - NUMERO <span id="numero-vincente-3">--</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-3">--</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #cd7f32; font-size: 1.3rem; font-weight: 700;">20.3H GENOA</div>
+                                <div style="color: #e2e8f0; font-size: 1.8rem; font-weight: 900;">€30,00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificazione -->
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
+                        <p style="color: #68d391; font-size: 1.1rem; font-weight: 600; margin-bottom: 10px;">✅ Estrazione Certificata</p>
+                        <p style="color: #cbd5e0; font-size: 0.9rem;">Risultati basati sull'estrazione ufficiale del Lotto - Ruota di Genova<br>
+                        Data: <span id="data-estrazione">24 Dicembre 2025 ore 18:30</span></p>
                     </div>
                 </div>
             </div>
@@ -2279,6 +2531,235 @@
                 }
             }, 2000);
         });
+
+        // === SISTEMA ESTRAZIONE AUTOMATICA ===
+        
+        // Date e orari per l'estrazione
+        const CHIUSURA_VENDITE = new Date('2025-12-24T18:00:00');
+        const ESTRAZIONE = new Date('2025-12-24T18:30:00');
+        
+        // Funzione principale di gestione countdown
+        function updateCountdownSystem() {
+            const now = new Date();
+            
+            const countdownVendite = document.getElementById('countdown-vendite');
+            const countdownEstrazione = document.getElementById('countdown-estrazione');
+            const estrazioneLive = document.getElementById('estrazione-live');
+            
+            if (now < CHIUSURA_VENDITE) {
+                // FASE 1: Vendite aperte - mostra countdown vendite
+                countdownVendite.style.display = 'block';
+                countdownEstrazione.style.display = 'none';
+                estrazioneLive.style.display = 'none';
+                
+                updateCountdownVendite(now);
+                enableVendite(true);
+                
+            } else if (now < ESTRAZIONE) {
+                // FASE 2: Vendite chiuse - countdown estrazione
+                countdownVendite.style.display = 'none';
+                countdownEstrazione.style.display = 'block';
+                estrazioneLive.style.display = 'none';
+                
+                updateCountdownEstrazione(now);
+                enableVendite(false);
+                
+            } else {
+                // FASE 3: Estrazione in corso
+                countdownVendite.style.display = 'none';
+                countdownEstrazione.style.display = 'none';
+                estrazioneLive.style.display = 'block';
+                
+                enableVendite(false);
+            }
+        }
+        
+        // Aggiorna countdown vendite
+        function updateCountdownVendite(now) {
+            const timeLeft = CHIUSURA_VENDITE.getTime() - now.getTime();
+            
+            if (timeLeft <= 0) {
+                updateCountdownSystem();
+                return;
+            }
+            
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            
+            // Aggiorna messaggio di urgenza
+            const alertDiv = document.getElementById('vendite-alert');
+            if (hours < 2) {
+                alertDiv.innerHTML = '<span style="color: #ff6b6b; font-size: 1.1rem; font-weight: 600; animation: pulse 1s infinite;">🚨 ULTIME ORE! Non perdere l\'occasione!</span>';
+            } else if (hours < 6) {
+                alertDiv.innerHTML = '<span style="color: #ffd700; font-size: 1.1rem; font-weight: 600;">⚡ Poche ore rimaste per partecipare!</span>';
+            }
+        }
+        
+        // Aggiorna countdown estrazione
+        function updateCountdownEstrazione(now) {
+            const timeLeft = ESTRAZIONE.getTime() - now.getTime();
+            
+            if (timeLeft <= 0) {
+                updateCountdownSystem();
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('minutes-est').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds-est').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Abilita/disabilita vendite
+        function enableVendite(enabled) {
+            const buyButtons = document.querySelectorAll('.buy-btn');
+            buyButtons.forEach(btn => {
+                btn.disabled = !enabled;
+                if (!enabled) {
+                    btn.style.background = '#666';
+                    btn.style.cursor = 'not-allowed';
+                    btn.textContent = 'VENDITE CHIUSE';
+                }
+            });
+        }
+        
+        // === CALCOLO VINCITORI ===
+        
+        function calcolaVincitori() {
+            const numero1 = parseInt(document.getElementById('numero1').value);
+            const numero2 = parseInt(document.getElementById('numero2').value);
+            const numero3 = parseInt(document.getElementById('numero3').value);
+            
+            // Validazione input
+            if (!numero1 || !numero2 || !numero3 || 
+                numero1 < 1 || numero1 > 90 ||
+                numero2 < 1 || numero2 > 90 ||
+                numero3 < 1 || numero3 > 90) {
+                alert('❌ Inserisci tutti i primi 3 numeri estratti del Lotto (1-90)!');
+                return;
+            }
+            
+            // Mappatura DIRETTA: 1° numero lotto = 1° premio, ecc.
+            const numeriVincenti = {
+                primo: numero1,
+                secondo: numero2, 
+                terzo: numero3
+            };
+            
+            console.log('🎲 Numeri estratti Lotto Genova:', { numero1, numero2, numero3 });
+            console.log('🏆 Numeri vincenti lotteria:', numeriVincenti);
+            
+            // Cerca vincitori nel database acquisti
+            const allPurchases = JSON.parse(localStorage.getItem('lotteryPurchases') || '[]');
+            
+            const vincitori = {
+                primo: trovaVincitore(numeriVincenti.primo, allPurchases),
+                secondo: trovaVincitore(numeriVincenti.secondo, allPurchases),
+                terzo: trovaVincitore(numeriVincenti.terzo, allPurchases)
+            };
+            
+            console.log('👥 Vincitori trovati:', vincitori);
+            
+            // Mostra risultati
+            mostraRisultatiEstrazione(numeriVincenti, vincitori);
+        }
+        
+        // Trova vincitore per numero specifico
+        function trovaVincitore(numeroVincente, allPurchases) {
+            for (let purchase of allPurchases) {
+                if (purchase.numbers.includes(numeroVincente)) {
+                    return {
+                        numero: numeroVincente,
+                        nome: purchase.name,
+                        telefono: purchase.phone,
+                        email: purchase.email
+                    };
+                }
+            }
+            return {
+                numero: numeroVincente,
+                nome: 'Numero non venduto',
+                telefono: '',
+                email: ''
+            };
+        }
+        
+        // Mostra risultati estrazione
+        function mostraRisultatiEstrazione(numeriVincenti, vincitori) {
+            // Aggiorna i numeri vincenti
+            document.getElementById('numero-vincente-1').textContent = numeriVincenti.primo;
+            document.getElementById('numero-vincente-2').textContent = numeriVincenti.secondo;
+            document.getElementById('numero-vincente-3').textContent = numeriVincenti.terzo;
+            
+            // Aggiorna i nomi vincitori
+            document.getElementById('nome-vincitore-1').textContent = vincitori.primo.nome;
+            document.getElementById('nome-vincitore-2').textContent = vincitori.secondo.nome;
+            document.getElementById('nome-vincitore-3').textContent = vincitori.terzo.nome;
+            
+            // Aggiorna timestamp
+            const now = new Date();
+            document.getElementById('data-estrazione').textContent = now.toLocaleString('it-IT');
+            
+            // Mostra sezione risultati con animazione
+            const risultatiDiv = document.getElementById('risultati-estrazione');
+            risultatiDiv.style.display = 'block';
+            
+            // Salva risultati nel localStorage
+            const risultati = {
+                dataEstrazione: now.toISOString(),
+                numeriLotto: [document.getElementById('numero1').value, 
+                            document.getElementById('numero2').value,
+                            document.getElementById('numero3').value],
+                numeriVincenti,
+                vincitori,
+                certificato: true
+            };
+            
+            localStorage.setItem('lotteryResults', JSON.stringify(risultati));
+            
+            console.log('✅ Risultati salvati:', risultati);
+            
+            // Scroll automatico ai risultati
+            risultatiDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Effetto confetti (opzionale)
+            celebrateWinners();
+        }
+        
+        // Effetto celebrazione vincitori
+        function celebrateWinners() {
+            // Semplice animazione di celebrazione
+            const vincitoreCards = document.querySelectorAll('.vincitore-card');
+            vincitoreCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'pulse 0.6s ease-in-out';
+                    setTimeout(() => {
+                        card.style.animation = '';
+                    }, 600);
+                }, index * 200);
+            });
+        }
+        
+        // === INIZIALIZZAZIONE SISTEMA ===
+        
+        // Avvia il sistema di countdown
+        updateCountdownSystem();
+        setInterval(updateCountdownSystem, 1000);
+        
+        // Test rapido (rimuovere in produzione)
+        console.log('🎄 Sistema Estrazione Lotteria inizializzato!');
+        console.log('⏰ Chiusura vendite:', CHIUSURA_VENDITE.toLocaleString('it-IT'));
+        console.log('🎲 Estrazione:', ESTRAZIONE.toLocaleString('it-IT'));
+        
+        // Debug: Per testare in locale, decommentare le righe seguenti
+        // CHIUSURA_VENDITE = new Date(Date.now() + 10000); // 10 secondi da ora
+        // ESTRAZIONE = new Date(Date.now() + 20000); // 20 secondi da ora
     </script>
 </body>
 </html>
