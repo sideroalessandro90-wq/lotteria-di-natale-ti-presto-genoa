@@ -446,6 +446,23 @@
             opacity: 0.6;
         }
         
+        /* Stile per numeri disabilitati (lotteria conclusa) */
+        .number-box.disabled {
+            cursor: not-allowed !important;
+            pointer-events: none;
+            opacity: 0.5;
+            filter: grayscale(70%);
+        }
+        
+        .number-box.disabled::after {
+            content: '🔒';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
         @keyframes christmasPulse {
             0%, 100% { 
                 box-shadow: 
@@ -984,6 +1001,13 @@
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        /* Animazione Pulse per vincitori */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255,215,0,0.6); }
+            100% { transform: scale(1); }
         }
         
         /* Toast Notifications */
@@ -1693,36 +1717,35 @@
             </div>
 
             <!-- Estrazione Live (dalle 18:30 in poi) -->
-            <div id="estrazione-live" class="estrazione-live-box" style="display: none; text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, #1a1a2e, #2d3748, #1a202c); border: 3px solid #ffd700; border-radius: 25px; box-shadow: 0 20px 50px rgba(255,215,0,0.4), 0 0 40px rgba(255,215,0,0.2);">
-                <h2 style="color: #ffd700; font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);">🎲 ESTRAZIONE LIVE</h2>
+            <div id="estrazione-live" class="estrazione-live-box" style="display: block; text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, #1a1a2e, #2d3748, #1a202c); border: 3px solid #ffd700; border-radius: 25px; box-shadow: 0 20px 50px rgba(255,215,0,0.4), 0 0 40px rgba(255,215,0,0.2);">
+                <h2 style="color: #ffd700; font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);">� RISULTATI UFFICIALI</h2>
                 <p style="color: #e2e8f0; font-size: 1.3rem; margin-bottom: 30px;">Ruota di <strong style="color: #c8102e;">GENOVA</strong> - Mercoledì 24 Dicembre 2025</p>
                 
-                <!-- Inserimento Numeri Lotto -->
-                <div id="input-numeri" style="margin-bottom: 40px; padding: 30px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
-                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 1.5rem;">📝 Inserisci i numeri estratti del Lotto:</h3>
-                    <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-                        <input type="number" id="numero1" min="1" max="90" placeholder="1°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #ffd700; border-radius: 10px; background: #1a1a2e; color: #ffd700; font-weight: 900;">
-                        <input type="number" id="numero2" min="1" max="90" placeholder="2°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #c0c0c0; border-radius: 10px; background: #1a1a2e; color: #c0c0c0; font-weight: 900;">
-                        <input type="number" id="numero3" min="1" max="90" placeholder="3°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 3px solid #cd7f32; border-radius: 10px; background: #1a1a2e; color: #cd7f32; font-weight: 900;">
-                        <input type="number" id="numero4" min="1" max="90" placeholder="4°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; color: #999; font-weight: 900;">
-                        <input type="number" id="numero5" min="1" max="90" placeholder="5°" style="width: 80px; padding: 15px; font-size: 1.5rem; text-align: center; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; color: #999; font-weight: 900;">
+                <!-- Numeri Estratti Ufficiali -->
+                <div id="numeri-estratti-finali" style="margin-bottom: 40px; padding: 30px; background: rgba(0,0,0,0.4); border-radius: 15px; border: 3px solid rgba(255,215,0,0.6); box-shadow: 0 15px 40px rgba(255,215,0,0.3);">
+                    <h3 style="color: #ffd700; margin-bottom: 25px; font-size: 1.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">🎯 NUMERI ESTRATTI RUOTA DI GENOVA</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
+                        <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); color: #1a1a2e; width: 90px; height: 90px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 900; box-shadow: 0 10px 25px rgba(255,215,0,0.4); border: 4px solid #ffd700;">20</div>
+                        <div style="background: linear-gradient(135deg, #c0c0c0, #e0e0e0); color: #1a1a2e; width: 90px; height: 90px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 900; box-shadow: 0 10px 25px rgba(192,192,192,0.4); border: 4px solid #c0c0c0;">44</div>
+                        <div style="background: linear-gradient(135deg, #cd7f32, #daa555); color: #1a1a2e; width: 90px; height: 90px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 900; box-shadow: 0 10px 25px rgba(205,127,50,0.4); border: 4px solid #cd7f32;">89</div>
                     </div>
-                    <button id="calcola-vincitori" onclick="calcolaVincitori()" style="padding: 15px 40px; font-size: 1.2rem; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #1a1a2e; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 8px 20px rgba(255,215,0,0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(255,215,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(255,215,0,0.3)'">🏆 CALCOLA VINCITORI</button>
+                    <p style="color: #68d391; font-size: 1.1rem; font-weight: 600; margin-bottom: 10px;">✅ ESTRAZIONE UFFICIALE CONCLUSA</p>
+                    <p style="color: #e2e8f0; font-size: 1rem;">24 Dicembre 2025 alle ore 18:30</p>
                 </div>
 
                 <!-- Risultati Estrazione -->
-                <div id="risultati-estrazione" style="display: none;">
+                <div id="risultati-estrazione" style="display: block;">
                     <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">🏆 VINCITORI UFFICIALI</h3>
                     
                     <!-- Vincitori -->
                     <div style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 40px;">
                         <!-- 1° Premio -->
-                        <div id="vincitore-1" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1)); border: 3px solid #ffd700; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                        <div id="vincitore-1" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1)); border: 3px solid #ffd700; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; animation: pulse 2s infinite;">
                             <div style="display: flex; align-items: center; gap: 20px;">
                                 <div style="font-size: 3rem;">🥇</div>
                                 <div>
-                                    <div style="color: #ffd700; font-size: 1.5rem; font-weight: 900;">1° PREMIO - NUMERO <span id="numero-vincente-1">--</span></div>
-                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-1">--</span></div>
+                                    <div style="color: #ffd700; font-size: 1.5rem; font-weight: 900;">1° PREMIO - NUMERO <span id="numero-vincente-1">20</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-1">🎉 ALYSEA</span></div>
                                 </div>
                             </div>
                             <div style="text-align: right;">
@@ -1736,8 +1759,8 @@
                             <div style="display: flex; align-items: center; gap: 20px;">
                                 <div style="font-size: 3rem;">🥈</div>
                                 <div>
-                                    <div style="color: #c0c0c0; font-size: 1.5rem; font-weight: 900;">2° PREMIO - NUMERO <span id="numero-vincente-2">--</span></div>
-                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-2">--</span></div>
+                                    <div style="color: #c0c0c0; font-size: 1.5rem; font-weight: 900;">2° PREMIO - NUMERO <span id="numero-vincente-2">44</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-2">⭐ Numero non venduto</span></div>
                                 </div>
                             </div>
                             <div style="text-align: right;">
@@ -1747,12 +1770,12 @@
                         </div>
 
                         <!-- 3° Premio -->
-                        <div id="vincitore-3" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(205,127,50,0.2), rgba(205,127,50,0.1)); border: 3px solid #cd7f32; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                        <div id="vincitore-3" class="vincitore-card" style="padding: 25px; background: linear-gradient(135deg, rgba(205,127,50,0.2), rgba(205,127,50,0.1)); border: 3px solid #cd7f32; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; animation: pulse 2s infinite;">
                             <div style="display: flex; align-items: center; gap: 20px;">
                                 <div style="font-size: 3rem;">🥉</div>
                                 <div>
-                                    <div style="color: #cd7f32; font-size: 1.5rem; font-weight: 900;">3° PREMIO - NUMERO <span id="numero-vincente-3">--</span></div>
-                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-3">--</span></div>
+                                    <div style="color: #cd7f32; font-size: 1.5rem; font-weight: 900;">3° PREMIO - NUMERO <span id="numero-vincente-3">89</span></div>
+                                    <div style="color: #e2e8f0; font-size: 1.1rem;">Vincitore: <span id="nome-vincitore-3">🎉 LAURA BRUNO</span></div>
                                 </div>
                             </div>
                             <div style="text-align: right;">
@@ -1774,33 +1797,23 @@
 
         <!-- Griglia Numeri -->
         <div class="info-panel">
-            <h2 style="text-align: center; margin-bottom: 20px;">🎲 SCEGLI I TUOI NUMERI FORTUNATI</h2>
+            <h2 style="text-align: center; margin-bottom: 20px;">� LOTTERIA CONCLUSA - NUMERI VENDUTI</h2>
             <div id="numbersStats" style="text-align: center; margin-bottom: 20px;"></div>
             <div class="numbers-grid" id="numbersGrid">
                 <!-- Numeri generati dinamicamente -->
             </div>
         </div>
 
-        <!-- Pannello Selezione -->
-        <div class="selection-panel" id="selectionPanel">
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #ffd700; margin-bottom: 10px;">🎯 LA TUA SELEZIONE</h3>
-                <p style="font-size: 0.9rem; opacity: 0.8;">Clicca sui numeri verdi per selezionarli. I numeri rossi/grigi sono già venduti.</p>
-            </div>
-            
-            <div class="selected-numbers" id="selectedNumbers">
-                🎯 Clicca sui numeri per selezionarli<br><small>(massimo 10 numeri)</small>
-            </div>
-            <div class="total-price" id="totalPrice">
-                €0,00
-            </div>
-            <div class="action-buttons">
-                <button class="btn-premium" id="buyButton" disabled style="opacity: 0.5;">
-                    💳 Acquista con PayPal
-                </button>
-                <button class="btn-premium btn-secondary" id="clearButton">
-                    🗑️ Cancella Tutto
-                </button>
+        <!-- Pannello Lotteria Conclusa -->
+        <div class="selection-panel" id="selectionPanel" style="background: linear-gradient(135deg, rgba(100,100,100,0.3), rgba(50,50,50,0.2)); border: 2px solid #666;">
+            <div style="text-align: center; padding: 20px;">
+                <h3 style="color: #c8102e; margin-bottom: 15px; font-size: 1.8rem;">🚫 LOTTERIA CONCLUSA</h3>
+                <p style="color: #e2e8f0; font-size: 1.1rem; margin-bottom: 15px;">L'estrazione si è tenuta il <strong>24 Dicembre 2025 alle 18:30</strong></p>
+                <p style="color: #ffd700; font-size: 1rem;">✅ Visualizza i risultati nella sezione <strong>"RISULTATI UFFICIALI"</strong> qui sopra</p>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(200,16,46,0.2); border-radius: 10px; border: 1px solid rgba(200,16,46,0.4);">
+                    <p style="color: #ff6b6b; font-size: 0.9rem; margin: 0;">🔒 Gli acquisti sono definitivamente chiusi</p>
+                </div>
             </div>
         </div>
 
@@ -1990,58 +2003,45 @@
                 return;
             }
             
-            console.log('✅ Container numbersGrid trovato, generazione 90 numeri...');
+            console.log('🏆 Generazione griglia numeri - LOTTERIA CONCLUSA');
             grid.innerHTML = '';
+            
+            // Ottieni numeri venduti
+            const soldNumbers = getSoldNumbers();
             
             for (let i = 1; i <= 90; i++) {
                 const numberBox = document.createElement('div');
-                numberBox.className = 'number-box available';
+                
+                // Tutti i numeri sono ora disabilitati
+                if (soldNumbers.includes(i)) {
+                    numberBox.className = 'number-box sold disabled';
+                    numberBox.style.background = '#666';
+                    numberBox.style.color = '#999';
+                    numberBox.style.cursor = 'not-allowed';
+                } else {
+                    numberBox.className = 'number-box disabled';
+                    numberBox.style.background = '#444';
+                    numberBox.style.color = '#777';
+                    numberBox.style.cursor = 'not-allowed';
+                }
+                
                 numberBox.textContent = i;
                 numberBox.dataset.number = i;
+                numberBox.title = 'Lotteria conclusa - Acquisti non più disponibili';
                 
-                numberBox.addEventListener('click', () => selectNumber(i));
+                // Nessun event listener - completamente disabilitato
                 grid.appendChild(numberBox);
             }
             
-            console.log('✅ 90 numeri generati con successo!');
+            console.log('✅ Griglia bloccata - 90 numeri non più acquistabili!');
         }
         
         function selectNumber(number) {
-            // Controlla se il numero è già venduto
-            const soldNumbers = getSoldNumbers();
-            if (soldNumbers.includes(number)) {
-                showToast('❌ Questo numero è già stato venduto!', 'error', 3000);
-                return;
-            }
-            
-            const isSelected = selectedNumbers.includes(number);
-            const numberBox = document.querySelector(`[data-number="${number}"]`);
-            
-            if (isSelected) {
-                // DESELEZIONA numero
-                selectedNumbers = selectedNumbers.filter(n => n !== number);
-                showToast(`🔄 Numero ${number} rimosso dalla selezione`, 'info', 2000);
-                
-                // Effetto visivo deseleziona
-                if (numberBox) {
-                    numberBox.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        numberBox.style.transform = 'scale(1)';
-                    }, 150);
-                }
-                
-            } else {
-                // SELEZIONA numero (se non al limite)
-                if (selectedNumbers.length >= maxNumbers) {
-                    showToast(`⚠️ Puoi selezionare massimo ${maxNumbers} numeri!`, 'error', 4000);
-                    
-                    // Effetto shake sui numeri selezionati
-                    document.querySelectorAll('.number-box.selected').forEach(box => {
-                        box.style.animation = 'shake 0.5s ease-in-out';
-                        setTimeout(() => {
-                            box.style.animation = 'christmasPulse 2s infinite';
-                        }, 500);
-                    });
+            // LOTTERIA CONCLUSA - Nessuna selezione possibile
+            showToast('🚫 Lotteria conclusa! L\'estrazione si è tenuta il 24/12/2025 alle 18:30', 'error', 5000);
+            console.log('❌ Tentativo di selezione bloccato - Lotteria conclusa');
+            return;
+        }
                     return;
                 }
                 
@@ -2546,32 +2546,18 @@
             const countdownEstrazione = document.getElementById('countdown-estrazione');
             const estrazioneLive = document.getElementById('estrazione-live');
             
-            if (now < CHIUSURA_VENDITE) {
-                // FASE 1: Vendite aperte - mostra countdown vendite
-                countdownVendite.style.display = 'block';
-                countdownEstrazione.style.display = 'none';
-                estrazioneLive.style.display = 'none';
-                
-                updateCountdownVendite(now);
-                enableVendite(true);
-                
-            } else if (now < ESTRAZIONE) {
-                // FASE 2: Vendite chiuse - countdown estrazione
-                countdownVendite.style.display = 'none';
-                countdownEstrazione.style.display = 'block';
-                estrazioneLive.style.display = 'none';
-                
-                updateCountdownEstrazione(now);
-                enableVendite(false);
-                
-            } else {
-                // FASE 3: Estrazione in corso
-                countdownVendite.style.display = 'none';
-                countdownEstrazione.style.display = 'none';
-                estrazioneLive.style.display = 'block';
-                
-                enableVendite(false);
-            }
+            // ESTRAZIONE CONCLUSA - Mostra sempre i risultati finali
+            console.log('🏆 LOTTERIA CONCLUSA - Mostrando risultati dell\'estrazione del 24 Dicembre 2025');
+            
+            countdownVendite.style.display = 'none';
+            countdownEstrazione.style.display = 'none';
+            estrazioneLive.style.display = 'block';
+            
+            // Disabilita definitivamente le vendite
+            enableVendite(false);
+            
+            // Mostra automaticamente i risultati
+            mostraRisultatiFinali();
         }
         
         // Aggiorna countdown vendite
@@ -2618,15 +2604,18 @@
         
         // Abilita/disabilita vendite
         function enableVendite(enabled) {
-            const buyButtons = document.querySelectorAll('.buy-btn');
+            const buyButtons = document.querySelectorAll('.buy-btn, .btn-premium');
             buyButtons.forEach(btn => {
-                btn.disabled = !enabled;
-                if (!enabled) {
-                    btn.style.background = '#666';
-                    btn.style.cursor = 'not-allowed';
-                    btn.textContent = 'VENDITE CHIUSE';
+                btn.disabled = true;
+                btn.style.background = '#666';
+                btn.style.cursor = 'not-allowed';
+                btn.style.opacity = '0.4';
+                if (btn.textContent.includes('Acquista') || btn.textContent.includes('PayPal')) {
+                    btn.textContent = '🚫 LOTTERIA CONCLUSA';
                 }
             });
+            
+            console.log('🔒 Tutte le vendite definitivamente bloccate - Lotteria conclusa');
         }
         
         // === CALCOLO VINCITORI ===
@@ -2746,6 +2735,43 @@
             });
         }
         
+        // === MOSTRA RISULTATI FINALI ===
+        function mostraRisultatiFinali() {
+            console.log('🏆 Caricamento risultati finali dell\'estrazione...');
+            
+            // Nasconde la sezione di preparazione se visibile
+            const preparazione = document.getElementById('preparazione-estrazione');
+            if (preparazione) {
+                preparazione.style.display = 'none';
+            }
+            
+            // Assicura che i risultati siano visibili
+            const risultatiDiv = document.getElementById('risultati-estrazione');
+            if (risultatiDiv) {
+                risultatiDiv.style.display = 'block';
+            }
+            
+            // Salva i risultati finali nel localStorage
+            const risultatiFinali = {
+                dataEstrazione: '2025-12-24T18:30:00',
+                numeriLotto: ['20', '44', '89'],
+                numeriVincenti: {
+                    primo: 20,
+                    secondo: 44,
+                    terzo: 89
+                },
+                vincitori: {
+                    primo: { numero: 20, nome: 'ALYSEA', metodo: 'Contanti' },
+                    secondo: { numero: 44, nome: 'Numero non venduto', metodo: '' },
+                    terzo: { numero: 89, nome: 'LAURA BRUNO', metodo: 'Contanti' }
+                },
+                certificato: true,
+                conclusa: true
+            };
+            
+            localStorage.setItem('lotteryResults', JSON.stringify(risultatiFinali));
+            console.log('✅ Risultati finali salvati nel localStorage');
+        }
         // === INIZIALIZZAZIONE SISTEMA ===
         
         // Avvia il sistema di countdown
